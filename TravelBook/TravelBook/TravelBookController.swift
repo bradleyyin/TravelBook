@@ -14,11 +14,12 @@ import FirebaseStorage
 class TravelBookController {
     
     var entries : [Entry] = []
+    var trips: [Trip] = []
     let storageRef = Storage.storage().reference()
     let fireStoreRef = Firestore.firestore()
-    func loadEntries() {
+    func loadEntries(for trip: Trip) {
         //guard let userID = _auth.currentUser?.uid else { return }
-        fireStoreRef.collection("user").document("rwrxHDC1HTy0EtYcDBu4").collection("trip").document("Zc9qs7PHLFiyJBzrREXP").collection("entry").addSnapshotListener { (snapshot, error) in
+        fireStoreRef.collection("user").document("rwrxHDC1HTy0EtYcDBu4").collection("trip").document(trip.id).collection("entry").addSnapshotListener { (snapshot, error) in
             if let error = error {
                 print(error)
             }
@@ -41,5 +42,23 @@ class TravelBookController {
             }
             completion()
         })
+    }
+    
+    func loadTrips() {
+        //guard let userID = _auth.currentUser?.uid else { return }
+        fireStoreRef.collection("user").document("rwrxHDC1HTy0EtYcDBu4").collection("trip").addSnapshotListener { (snapshot, error) in
+            if let error = error {
+                print(error)
+            }
+            guard let snapshot = snapshot else { return }
+            for documentSnapshot in snapshot.documents {
+                let dictionary = documentSnapshot.data()
+                let trip = Trip.init(with: dictionary)
+                self.trips.append(trip)
+                
+            }
+            print(self.trips)
+        }
+        
     }
 }
