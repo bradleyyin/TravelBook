@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import MapKit
 
-struct Trip {
+class Trip: NSObject {
     let latitude: Double
     let longitude: Double
     let name: String
@@ -29,4 +30,15 @@ struct Trip {
         self.name = dictionary["name"] as! String
         self.id = dictionary["id"] as! String
     }
+}
+
+extension Trip: MKAnnotation {
+    var coordinate: CLLocationCoordinate2D {
+       return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    }
+    var title: String? {
+        return name
+    }
+    
+    
 }

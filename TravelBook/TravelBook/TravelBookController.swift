@@ -48,11 +48,12 @@ class TravelBookController {
         })
     }
     
-    func loadTrips() {
+    func loadTrips(completion: @escaping (Error?) -> Void) {
         //guard let userID = _auth.currentUser?.uid else { return }
         fireStoreRef.collection("user").document("rwrxHDC1HTy0EtYcDBu4").collection("trip").addSnapshotListener { (snapshot, error) in
             if let error = error {
-                print(error)
+                completion(error)
+                return
             }
             guard let snapshot = snapshot else { return }
             for documentSnapshot in snapshot.documents {
@@ -61,7 +62,7 @@ class TravelBookController {
                 self.trips.append(trip)
                 
             }
-            print(self.trips)
+            completion(nil)
         }
         
     }
