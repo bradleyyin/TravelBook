@@ -128,6 +128,8 @@
 		753C1041235E18A00062BEB4 /* TravelBook */ = {
 			isa = PBXGroup;
 			children = (
+				754580E6235F6BC300C3305C /* ModelController */,
+				754580E5235F6BAA00C3305C /* Model */,
 				753C1042235E18A00062BEB4 /* AppDelegate.swift */,
 				753C1044235E18A00062BEB4 /* SceneDelegate.swift */,
 				753C1048235E18A00062BEB4 /* Main.storyboard */,
@@ -135,12 +137,34 @@
 				753C104D235E18A60062BEB4 /* LaunchScreen.storyboard */,
 				753C1050235E18A60062BEB4 /* Info.plist */,
 				753C1056235E1A430062BEB4 /* GoogleService-Info.plist */,
-				753C1066235E332C0062BEB4 /* Entry.swift */,
-				7531D9F6235E7427005AEF63 /* Trip.swift */,
-				753C1068235E49160062BEB4 /* TravelBookController.swift */,
-				7531D9F8235F5544005AEF63 /* MapViewController.swift */,
+				754580E7235F6BD300C3305C /* ViewController */,
 			);
 			path = TravelBook;
+			sourceTree = "<group>";
+		};
+		754580E5235F6BAA00C3305C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				753C1066235E332C0062BEB4 /* Entry.swift */,
+				7531D9F6235E7427005AEF63 /* Trip.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		754580E6235F6BC300C3305C /* ModelController */ = {
+			isa = PBXGroup;
+			children = (
+				753C1068235E49160062BEB4 /* TravelBookController.swift */,
+			);
+			path = ModelController;
+			sourceTree = "<group>";
+		};
+		754580E7235F6BD300C3305C /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				7531D9F8235F5544005AEF63 /* MapViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		CB52B1B12433FF7D3CD0A70F /* Pods */ = {

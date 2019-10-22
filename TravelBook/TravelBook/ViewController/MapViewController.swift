@@ -26,6 +26,9 @@ class MapViewController: UIViewController {
                 print("Error loading trip: \(error)")
                 return
             }
+            DispatchQueue.main.async {
+                self.mapView.addAnnotations(self.controller.trips)
+            }
             
         }
         
