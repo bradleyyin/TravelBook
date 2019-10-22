@@ -63,10 +63,15 @@ extension MapViewController: MKMapViewDelegate {
                     return
                 }
                 detailView.photo = photo
+                DispatchQueue.main.async {
+                    mapView.selectAnnotation(annotation, animated: true)
+                }
             }
         }
         
         annotationView.detailCalloutAccessoryView = detailView
+        
+        
         
         return annotationView
     }
