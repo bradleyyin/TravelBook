@@ -60,6 +60,21 @@ class TravelBookController {
         }
     }
     
+    func loadPhoto(at url: URL, completion: @escaping (UIImage?, Error?) -> Void) {
+        URLSession.shared.dataTask(with: url) { (data, _, error) in
+            if let error = error {
+                completion(nil, error)
+                return
+            }
+            guard let data = data else {
+                completion(nil,nil)
+                return
+            }
+            let image = UIImage(data: data)
+            completion(image, nil)
+        }
+    }
+    
     func addEntry(entry: Entry, completion: @escaping () -> Void = {}) {
         fireStoreRef.collection("user").document("rwrxHDC1HTy0EtYcDBu4").collection("trip").document("Zc9qs7PHLFiyJBzrREXP").collection("entry").document(entry.id).setData(entry.toDictionary(), completion: { (error) in
             if let error = error {
