@@ -19,6 +19,7 @@
 		753C1057235E1A430062BEB4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 753C1056235E1A430062BEB4 /* GoogleService-Info.plist */; };
 		753C1067235E332C0062BEB4 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753C1066235E332C0062BEB4 /* Entry.swift */; };
 		753C1069235E49160062BEB4 /* TravelBookController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753C1068235E49160062BEB4 /* TravelBookController.swift */; };
+		754580EA235F6C7200C3305C /* TripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754580E9235F6C7200C3305C /* TripView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		753C107E235E55A70062BEB4 /* FirebaseCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		753C1080235E55A70062BEB4 /* FirebaseFirestore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseFirestore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		753C1082235E55A70062BEB4 /* FirebaseStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		754580E9235F6C7200C3305C /* TripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripView.swift; sourceTree = "<group>"; };
 		93258549FC8DE657E3918131 /* libPods-TravelBookTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TravelBookTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCBF3D53C9DA9785ED97CC67 /* Pods-TravelBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TravelBook.release.xcconfig"; path = "Target Support Files/Pods-TravelBook/Pods-TravelBook.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -128,6 +130,7 @@
 		753C1041235E18A00062BEB4 /* TravelBook */ = {
 			isa = PBXGroup;
 			children = (
+				754580E8235F6C2000C3305C /* Views */,
 				754580E6235F6BC300C3305C /* ModelController */,
 				754580E5235F6BAA00C3305C /* Model */,
 				753C1042235E18A00062BEB4 /* AppDelegate.swift */,
@@ -165,6 +168,14 @@
 				7531D9F8235F5544005AEF63 /* MapViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		754580E8235F6C2000C3305C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				754580E9235F6C7200C3305C /* TripView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		CB52B1B12433FF7D3CD0A70F /* Pods */ = {
@@ -350,6 +361,7 @@
 				753C1069235E49160062BEB4 /* TravelBookController.swift in Sources */,
 				753C1043235E18A00062BEB4 /* AppDelegate.swift in Sources */,
 				753C1045235E18A00062BEB4 /* SceneDelegate.swift in Sources */,
+				754580EA235F6C7200C3305C /* TripView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
