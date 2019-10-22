@@ -13,7 +13,13 @@ struct Trip {
     let longitude: Double
     let name: String
     let id: String
-    let entries: [Entry] = []
+    
+    init(latitude: Double, longitude: Double, name: String) {
+        self.latitude = latitude
+        self.longitude = longitude
+        self.name = name
+        self.id = UUID().uuidString
+    }
     
     
     init(with dictionary: [String: Any]) {
