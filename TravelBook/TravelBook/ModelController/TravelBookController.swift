@@ -72,7 +72,7 @@ class TravelBookController {
             }
             let image = UIImage(data: data)
             completion(image, nil)
-        }
+        }.resume()
     }
     
     func addEntry(entry: Entry, completion: @escaping () -> Void = {}) {

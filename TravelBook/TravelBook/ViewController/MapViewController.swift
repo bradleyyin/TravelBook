@@ -37,5 +37,37 @@ class MapViewController: UIViewController {
 }
 
 extension MapViewController: MKMapViewDelegate {
-    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        // TODO: figure out how to handle multiple annoations if required ...
+        guard let trip = annotation as? Trip else { fatalError("Invalid type") }
+        
+        guard let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "TripView") as? MKMarkerAnnotationView else { fatalError("Incorrect view is registered")
+        }
+        
+        annotationView.canShowCallout = true
+        let detailView = TripView()
+        detailView.trip = trip
+        detailView.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        detailView.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        
+        controller.loadLatestPhotoURL(for: trip) { (photoURLString, error) in
+            if let error = error {
+                print("Error loading photoURL String: \(error)")
+                return
+            }
+            guard let photoURLString = photoURLString, let url = URL(string: photoURLString) else { return }
+            self.controller.loadPhoto(at: url) { (photo, error) in
+                if let error = error {
+                    print("error loading photo: \(error)")
+                    return
+                }
+                detailView.photo = photo
+            }
+        }
+        
+        annotationView.detailCalloutAccessoryView = detailView
+        
+        return annotationView
+    }
 }
