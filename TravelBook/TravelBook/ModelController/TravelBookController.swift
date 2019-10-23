@@ -18,16 +18,16 @@ class TravelBookController {
     let storageRef = Storage.storage().reference()
     let fireStoreRef = Firestore.firestore()
     
-    init() {
-        loadTrips { (error) in
-            if let error = error {
-                print("error loading trip: \(error)")
-                return
-            }
-            
-            
-        }
-    }
+//    init() {
+//        loadTrips { (error) in
+//            if let error = error {
+//                print("error loading trip: \(error)")
+//                return
+//            }
+//            
+//            
+//        }
+//    }
     
     func loadEntries(for trip: Trip, completion: @escaping (Error?) -> Void) {
         //guard let userID = _auth.currentUser?.uid else { return }

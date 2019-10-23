@@ -8,14 +8,20 @@
 
 import UIKit
 
+protocol TripViewDelegate {
+    func didTapImage(trip: Trip)
+}
+
 class TripView: UIView {
 
     private let nameLabel = UILabel()
     private var photoImageView: UIImageView!
     
+    var delegate: TripViewDelegate?
+    
     var trip: Trip? {
         didSet {
-            updateViews()
+            //updateViews()
         }
     }
     var photo: UIImage? {
@@ -44,15 +50,27 @@ class TripView: UIView {
         imageView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         imageView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20).isActive = true
+
         
         self.photoImageView = imageView
     }
     
-    private func updateViews() {
-        guard let trip = trip else { return }
-        //nameLabel.text = trip.name
-        
+    private func setupGestureRecognizer() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(photoImageViewTapped))
+        photoImageView.isUserInteractionEnabled = true
+        photoImageView.addGestureRecognizer(tap)
     }
+    
+    @objc func photoImageViewTapped() {
+        guard let trip = trip else { return }
+        delegate?.didTapImage(trip: trip)
+    }
+    
+//    private func updateViews() {
+//        guard let trip = trip else { return }
+//        //nameLabel.text = trip.name
+//
+//    }
     private func updatePhoto() {
         DispatchQueue.main.async {
             self.photoImageView.contentMode = .scaleAspectFit
