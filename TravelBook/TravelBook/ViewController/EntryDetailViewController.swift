@@ -18,6 +18,7 @@ class EntryDetailViewController: UIViewController {
     var trip: Trip!
     var controller: TravelBookController!
     var photos: [UIImage] = []
+    var photoURLStrings: [String] = []
     var datePicker: UIDatePicker!
     var formatter: DateFormatter {
         let formatter = DateFormatter()
@@ -85,6 +86,7 @@ class EntryDetailViewController: UIViewController {
     
     func loadPhotos() {
         guard let entry = entry else { return }
+        photoURLStrings = entry.photoURLStrings
         if controller.travelCache.values(forKey: entry.id) == nil {
             for photoString in entry.photoURLStrings {
                 guard let url = URL(string: photoString) else { continue }
@@ -114,19 +116,22 @@ class EntryDetailViewController: UIViewController {
     @IBAction func saveEntry(_ sender: Any) {
         let date = datePicker.date
         let notes = noteTextView.text
-        controller.uploadPhotos(photos: photos) { (photoURLStrings) in
-            
-            if var entry = self.entry {
-                entry.photoURLStrings = photoURLStrings
-                entry.notes = notes ?? ""
-                entry.date = date
-                self.controller.addEntry(to: self.trip, entry: entry)
-            } else {
-                let entry = Entry(date: date, photoURLStrings: photoURLStrings, notes: notes ?? "")
-                self.controller.addEntry(to: self.trip, entry: entry)
-            }
-            
+        
+        if var entry = self.entry {
+            entry.photoURLStrings = photoURLStrings
+            entry.notes = notes ?? ""
+            entry.date = date
+            self.controller.addEntry(to: self.trip, entry: entry)
+            controller.travelCache.cacheValues(forKey: entry.id, values: photos)
+            self.navigationController?.popViewController(animated: true)
+        } else {
+            let entry = Entry(date: date, photoURLStrings: photoURLStrings, notes: notes ?? "")
+            self.controller.addEntry(to: self.trip, entry: entry)
+            controller.travelCache.cacheValues(forKey: entry.id, values: photos)
+            self.navigationController?.popViewController(animated: true)
         }
+        
+        
         
     }
     
@@ -166,6 +171,11 @@ extension EntryDetailViewController: UIImagePickerControllerDelegate, UINavigati
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let userPickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
             photos.append(userPickedImage)
+            controller.uploadPhoto(photo: userPickedImage) { (url) in
+                guard let url = url else { return }
+                
+                self.photoURLStrings.append(url.absoluteString)
+            }
             imagePicker.dismiss(animated: true) {
                 self.photoCollectionView.reloadData()
             }

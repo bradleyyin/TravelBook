@@ -90,8 +90,11 @@ class TravelBookController {
     }
     
     func uploadPhoto(photo: UIImage, completion: @escaping (URL?) -> Void) {
+        guard let currentUser = Auth.auth().currentUser else { return }
         
-        let photoRef = storageRef.child("photos").child(userID)
+        let photoID = UUID().uuidString
+        
+        let photoRef = storageRef.child("photos").child(userID).child(photoID)
         guard let photoData = photo.pngData() else { return }
         
         let uploadTask = photoRef.putData(photoData, metadata: nil) { (metadata, error) in
@@ -126,21 +129,21 @@ class TravelBookController {
         uploadTask.resume()
     }
     
-    func uploadPhotos(photos: [UIImage], completion: @escaping ([String]) -> Void) {
-        let dispatchGroup = DispatchGroup()
-        var photoURLStrings: [String] = []
-        for photo in photos {
-            dispatchGroup.enter()
-            uploadPhoto(photo: photo) { (url) in
-                guard let url = url else { return }
-                let photoURLString = url.path
-                photoURLStrings.append(photoURLString)
-                dispatchGroup.leave()
-            }
-        }
-        dispatchGroup.wait()
-        completion(photoURLStrings)
-    }
+//    func uploadPhotos(photos: [UIImage], completion: @escaping ([String]) -> Void) {
+//        let dispatchGroup = DispatchGroup()
+//        var photoURLStrings: [String] = []
+//        for photo in photos {
+//            dispatchGroup.enter()
+//            uploadPhoto(photo: photo) { (url) in
+//                guard let url = url else { return }
+//                let photoURLString = url.path
+//                photoURLStrings.append(photoURLString)
+//                dispatchGroup.leave()
+//            }
+//        }
+//        dispatchGroup.wait()
+//        completion(photoURLStrings)
+//    }
     
     func addEntry(to trip: Trip, entry: Entry, completion: @escaping () -> Void = {}) {
         fireStoreRef.collection("user").document(userID).collection("trip").document(trip.id).collection("entry").document(entry.id).setData(entry.toDictionary(), completion: { (error) in
