@@ -14,7 +14,7 @@ import FirebaseStorage
 class TravelBookController {
     
     var trips: [Trip] = []
-    var tripEntriesCache = BYCache()
+    var travelCache = BYCache()
     let storageRef = Storage.storage().reference()
     let fireStoreRef = Firestore.firestore()
     
@@ -48,7 +48,7 @@ class TravelBookController {
                 entries.append(entry)
             }
            
-            self.tripEntriesCache.cacheEntries(forKey: trip.id, entries: entries)
+            self.travelCache.cacheValues(forKey: trip.id, values: entries)
             completion(nil)
         }
     }

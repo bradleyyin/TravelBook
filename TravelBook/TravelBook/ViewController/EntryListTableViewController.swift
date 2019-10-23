@@ -21,7 +21,7 @@ class EntryListTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if controller.tripEntriesCache.entries(forKey: trip.id) == nil {
+        if controller.travelCache.values(forKey: trip.id) == nil {
             controller.loadEntries(for: trip) { (_) in
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
@@ -35,13 +35,13 @@ class EntryListTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return controller.tripEntriesCache.entries(forKey: trip.id)?.count ?? 0
+        return controller.travelCache.values(forKey: trip.id)?.count ?? 0
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EntryCell", for: indexPath)
-        guard let entry = controller.tripEntriesCache.entries(forKey: trip.id)?[indexPath.row] as? Entry else { return cell }
+        guard let entry = controller.travelCache.values(forKey: trip.id)?[indexPath.row] as? Entry else { return cell }
         
         cell.textLabel?.text = dateFormatter.string(from: entry.date)
 
@@ -89,7 +89,12 @@ class EntryListTableViewController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+        if segue.identifier == "EntryDetailShowSegue" {
+            guard let detailVC = segue.destination as? EntryDetailViewController, let indexPath = tableView.indexPathForSelectedRow, let entry = controller.travelCache.values(forKey: trip.id)?[indexPath.row] as? Entry else { return }
+            detailVC.entry = entry
+            detailVC.controller = controller
+            
+        }
     }
     
 

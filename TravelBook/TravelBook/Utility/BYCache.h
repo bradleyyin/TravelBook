@@ -10,7 +10,7 @@
 
 @interface BYCache: NSCache
 
-- (void)cacheEntriesForKey:(NSString * _Nonnull)key entries:(NSArray * _Nonnull)entries;
-- (NSArray * _Nullable)entriesForKey:(NSString * _Nonnull)key;
+- (void)cacheValuesForKey:(NSString * _Nonnull)key values:(NSArray * _Nonnull)entries;
+- (NSArray * _Nullable)valuesForKey:(NSString * _Nonnull)key;
 
 @end

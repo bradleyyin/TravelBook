@@ -27,13 +27,13 @@
     return self;
 }
 
-- (void)cacheEntriesForKey:(NSString *)key entries:(NSArray *)entries {
-    if (entries) {
-        [self.cache setObject:entries forKey:key];
+- (void)cacheValuesForKey:(NSString *)key values:(NSArray *)values {
+    if (values) {
+        [self.cache setObject:values forKey:key];
     }
 }
 
-- (NSArray *)entriesForKey:(NSString *)key {
+- (NSArray *)valuesForKey:(NSString *)key {
     return [self.cache objectForKey:key];
 }
 

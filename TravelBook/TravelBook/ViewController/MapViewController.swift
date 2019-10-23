@@ -63,7 +63,7 @@ extension MapViewController: MKMapViewDelegate {
                 print("Error loading entries: \(error)")
                 return
             }
-            guard let entry = self.controller.tripEntriesCache.entries(forKey: trip.id)?.last as? Entry else { return }
+            guard let entry = self.controller.travelCache.values(forKey: trip.id)?.last as? Entry else { return }
             guard let photoURLString = entry.photoURLStrings.last, let url = URL(string: photoURLString) else { return }
             self.controller.loadPhoto(at: url) { (photo, error) in
                 if let error = error {
