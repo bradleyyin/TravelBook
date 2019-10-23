@@ -10,7 +10,6 @@ import UIKit
 
 class EntryDetailViewController: UIViewController {
 
-    @IBOutlet weak var cityTextField: UITextField!
     @IBOutlet weak var dateTextField: UITextField!
     @IBOutlet weak var photoCollectionView: UICollectionView!
     @IBOutlet weak var noteTextView: UITextView!
@@ -18,14 +17,58 @@ class EntryDetailViewController: UIViewController {
     var entry: Entry?
     var controller: TravelBookController!
     var photos: [UIImage] = []
+    var datePicker: UIDatePicker!
+    var formatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         photoCollectionView.delegate = self
         photoCollectionView.dataSource = self
+        self.datePicker = UIDatePicker()
+        showDatePicker()
+        updateViews()
         loadPhotos()
         
         // Do any additional setup after loading the view.
+    }
+    
+    func updateViews() {
+        guard let entry = entry else { return }
+        dateTextField.text = formatter.string(from: entry.date)
+        noteTextView.text = entry.notes
+    }
+    
+    func showDatePicker(){
+        //format date
+        if let date = entry?.date{
+            datePicker.date = date
+        }
+        datePicker.datePickerMode = .date
+        datePicker.minimumDate = Date(timeIntervalSinceReferenceDate: 0)
+    
+        
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneDatePicker))
+        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDatePicker))
+        toolbar.setItems([cancelButton,space,doneButton], animated: false)
+        dateTextField.inputAccessoryView = toolbar
+        dateTextField.inputView = datePicker
+    }
+    
+    @objc func doneDatePicker(){
+        
+        dateTextField.text = formatter.string(from: datePicker.date)
+        self.view.endEditing(true)
+    }
+    
+    @objc func cancelDatePicker(){
+        self.view.endEditing(true)
     }
     
     func loadPhotos() {
