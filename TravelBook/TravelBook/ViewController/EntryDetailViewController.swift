@@ -15,6 +15,7 @@ class EntryDetailViewController: UIViewController {
     @IBOutlet weak var noteTextView: UITextView!
     
     var entry: Entry?
+    var trip: Trip!
     var controller: TravelBookController!
     var photos: [UIImage] = []
     var datePicker: UIDatePicker!
@@ -24,6 +25,8 @@ class EntryDetailViewController: UIViewController {
         return formatter
     }
     
+    var imagePicker: UIImagePickerController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         photoCollectionView.delegate = self
@@ -31,9 +34,18 @@ class EntryDetailViewController: UIViewController {
         self.datePicker = UIDatePicker()
         showDatePicker()
         updateViews()
+        setupImagePicker()
         loadPhotos()
         
+        
         // Do any additional setup after loading the view.
+    }
+    
+    private func setupImagePicker() {
+        imagePicker = UIImagePickerController()
+        imagePicker.allowsEditing = true
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
     }
     
     func updateViews() {
@@ -95,7 +107,30 @@ class EntryDetailViewController: UIViewController {
         
     }
     
-
+    @IBAction func addPhoto(_ sender: Any) {
+        self.present(imagePicker, animated: true)
+    }
+    
+    @IBAction func saveEntry(_ sender: Any) {
+        let date = datePicker.date
+        let notes = noteTextView.text
+        controller.uploadPhotos(photos: photos) { (photoURLStrings) in
+            
+            if var entry = self.entry {
+                entry.photoURLStrings = photoURLStrings
+                entry.notes = notes ?? ""
+                entry.date = date
+                self.controller.addEntry(to: self.trip, entry: entry)
+            } else {
+                let entry = Entry(date: date, photoURLStrings: photoURLStrings, notes: notes ?? "")
+                self.controller.addEntry(to: self.trip, entry: entry)
+            }
+            
+        }
+        
+    }
+    
+    
     /*
     // MARK: - Navigation
 
@@ -122,4 +157,18 @@ extension EntryDetailViewController: UICollectionViewDataSource, UICollectionVie
     }
     
     
+}
+
+extension EntryDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        imagePicker.dismiss(animated: true, completion: nil)
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let userPickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
+            photos.append(userPickedImage)
+            imagePicker.dismiss(animated: true) {
+                self.photoCollectionView.reloadData()
+            }
+        }
+    }
 }

@@ -93,6 +93,7 @@ class EntryListTableViewController: UITableViewController {
             guard let detailVC = segue.destination as? EntryDetailViewController, let indexPath = tableView.indexPathForSelectedRow, let entry = controller.travelCache.values(forKey: trip.id)?[indexPath.row] as? Entry else { return }
             detailVC.entry = entry
             detailVC.controller = controller
+            detailVC.trip = trip
             
         }
     }

@@ -9,9 +9,9 @@
 import Foundation
 
 struct Entry {
-    let date: Date
-    let photoURLStrings: [String]
-    let notes: String
+    var date: Date
+    var photoURLStrings: [String]
+    var notes: String
     let id: String
     
     init(date: Date, photoURLStrings: [String], notes: String) {

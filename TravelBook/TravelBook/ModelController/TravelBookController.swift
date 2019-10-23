@@ -17,6 +17,7 @@ class TravelBookController {
     var travelCache = BYCache()
     let storageRef = Storage.storage().reference()
     let fireStoreRef = Firestore.firestore()
+    let userID = "rwrxHDC1HTy0EtYcDBu4"
     
 //    init() {
 //        loadTrips { (error) in
@@ -31,7 +32,7 @@ class TravelBookController {
     
     func loadEntries(for trip: Trip, completion: @escaping (Error?) -> Void) {
         //guard let userID = _auth.currentUser?.uid else { return }
-        fireStoreRef.collection("user").document("rwrxHDC1HTy0EtYcDBu4").collection("trip").document(trip.id).collection("entry").addSnapshotListener { (snapshot, error) in
+        fireStoreRef.collection("user").document(userID).collection("trip").document(trip.id).collection("entry").addSnapshotListener { (snapshot, error) in
             if let error = error {
                 print(error)
                 completion(error)
@@ -88,8 +89,61 @@ class TravelBookController {
         }.resume()
     }
     
-    func addEntry(entry: Entry, completion: @escaping () -> Void = {}) {
-        fireStoreRef.collection("user").document("rwrxHDC1HTy0EtYcDBu4").collection("trip").document("Zc9qs7PHLFiyJBzrREXP").collection("entry").document(entry.id).setData(entry.toDictionary(), completion: { (error) in
+    func uploadPhoto(photo: UIImage, completion: @escaping (URL?) -> Void) {
+        
+        let photoRef = storageRef.child("photos").child(userID)
+        guard let photoData = photo.pngData() else { return }
+        
+        let uploadTask = photoRef.putData(photoData, metadata: nil) { (metadata, error) in
+            if let error = error {
+                NSLog("Error storing media data: \(error)")
+                completion(nil)
+                return
+            }
+            
+            if metadata == nil {
+                NSLog("No metadata returned from upload task.")
+                completion(nil)
+                return
+            }
+            
+            photoRef.downloadURL(completion: { (url, error) in
+                
+                if let error = error {
+                    NSLog("Error getting download url of media: \(error)")
+                }
+                
+                guard let url = url else {
+                    NSLog("Download url is nil. Unable to create a Media object")
+                    
+                    completion(nil)
+                    return
+                }
+                completion(url)
+            })
+        }
+        
+        uploadTask.resume()
+    }
+    
+    func uploadPhotos(photos: [UIImage], completion: @escaping ([String]) -> Void) {
+        let dispatchGroup = DispatchGroup()
+        var photoURLStrings: [String] = []
+        for photo in photos {
+            dispatchGroup.enter()
+            uploadPhoto(photo: photo) { (url) in
+                guard let url = url else { return }
+                let photoURLString = url.path
+                photoURLStrings.append(photoURLString)
+                dispatchGroup.leave()
+            }
+        }
+        dispatchGroup.wait()
+        completion(photoURLStrings)
+    }
+    
+    func addEntry(to trip: Trip, entry: Entry, completion: @escaping () -> Void = {}) {
+        fireStoreRef.collection("user").document(userID).collection("trip").document(trip.id).collection("entry").document(entry.id).setData(entry.toDictionary(), completion: { (error) in
             if let error = error {
                 fatalError("fail to add entry: \(error)")
             }
@@ -99,7 +153,7 @@ class TravelBookController {
     
     func loadTrips(completion: @escaping (Error?) -> Void) {
         //guard let userID = _auth.currentUser?.uid else { return }
-        fireStoreRef.collection("user").document("rwrxHDC1HTy0EtYcDBu4").collection("trip").addSnapshotListener { (snapshot, error) in
+        fireStoreRef.collection("user").document(userID).collection("trip").addSnapshotListener { (snapshot, error) in
             if let error = error {
                 completion(error)
                 return

@@ -74,7 +74,9 @@
                             <outlet property="delegate" destination="ibE-pS-VDJ" id="cmV-SK-O1z"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="WsF-T2-6Qw"/>
+                    <navigationItem key="navigationItem" id="WsF-T2-6Qw">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="bjv-8y-ecZ"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="waW-Cz-WEo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -153,6 +155,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="156-Ex-Jry">
                                 <rect key="frame" x="151.66666666666666" y="509" width="72" height="30"/>
                                 <state key="normal" title="Add photo"/>
+                                <connections>
+                                    <action selector="addPhoto:" destination="fme-5k-gOp" eventType="touchUpInside" id="q0L-qU-za1"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -172,7 +177,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="BeV-is-Q8B"/>
                     </view>
-                    <navigationItem key="navigationItem" id="SbH-TQ-Ufo"/>
+                    <navigationItem key="navigationItem" id="SbH-TQ-Ufo">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="1bq-Uo-19V">
+                            <connections>
+                                <action selector="saveEntry:" destination="fme-5k-gOp" id="di6-1j-Qms"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="dateTextField" destination="6rT-ft-NJI" id="a2B-Uh-a0R"/>
                         <outlet property="noteTextView" destination="lbh-Ao-WFJ" id="gV4-Q3-Pn4"/>
