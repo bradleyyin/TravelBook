@@ -21,16 +21,17 @@ class MapViewController: UIViewController {
         mapView.delegate = self
         
         mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: "TripView")
-        controller.loadTrips { (error) in
-            if let error = error {
-                print("Error loading trip: \(error)")
-                return
-            }
-            DispatchQueue.main.async {
-                self.mapView.addAnnotations(self.controller.trips)
-            }
-            
-        }
+        mapView.addAnnotations(controller.trips)
+//        controller.loadTrips { (error) in
+//            if let error = error {
+//                print("Error loading trip: \(error)")
+//                return
+//            }
+//            DispatchQueue.main.async {
+//                self.mapView.addAnnotations(self.controller.trips)
+//            }
+//            
+//        }
         
     }
 
@@ -45,34 +46,38 @@ extension MapViewController: MKMapViewDelegate {
         guard let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "TripView") as? MKMarkerAnnotationView else { fatalError("Incorrect view is registered")
         }
         
-        annotationView.canShowCallout = true
-        let detailView = TripView()
-        detailView.trip = trip
-        detailView.heightAnchor.constraint(equalToConstant: 300).isActive = true
-        detailView.widthAnchor.constraint(equalToConstant: 300).isActive = true
+//        annotationView.canShowCallout = true
+//        let detailView = TripView()
+//        detailView.trip = trip
+//        detailView.heightAnchor.constraint(equalToConstant: 300).isActive = true
+//        detailView.widthAnchor.constraint(equalToConstant: 300).isActive = true
         
-        controller.loadLatestPhotoURL(for: trip) { (photoURLString, error) in
+        
+        controller.loadEntries(for: trip) { (error) in
             if let error = error {
-                print("Error loading photoURL String: \(error)")
+                print("Error loading entries: \(error)")
                 return
             }
-            guard let photoURLString = photoURLString, let url = URL(string: photoURLString) else { return }
+            guard let entry = self.controller.tripEntriesCache.entries(forKey: trip.id)?.last as? Entry else { return }
+            guard let photoURLString = entry.photoURLStrings.last, let url = URL(string: photoURLString) else { return }
             self.controller.loadPhoto(at: url) { (photo, error) in
                 if let error = error {
                     print("error loading photo: \(error)")
                     return
                 }
-                detailView.photo = photo
+                //detailView.photo = photo
                 DispatchQueue.main.async {
-                    mapView.selectAnnotation(annotation, animated: true)
+                    //mapView.selectAnnotation(annotation, animated: true)
+                    annotationView.image = photo?.resizeImage(targetSize: CGSize(width: 50, height: 50))
                 }
             }
         }
         
-        annotationView.detailCalloutAccessoryView = detailView
+        //annotationView.detailCalloutAccessoryView = detailView
         
         
         
         return annotationView
     }
+    
 }

@@ -14,20 +14,31 @@ import FirebaseStorage
 class TravelBookController {
     
     var trips: [Trip] = []
+    var tripEntriesCache = BYCache()
     let storageRef = Storage.storage().reference()
     let fireStoreRef = Firestore.firestore()
     
-    func loadEntries(for trip: Trip, completion: @escaping ([Entry]?, Error?) -> Void) {
+    init() {
+        loadTrips { (error) in
+            if let error = error {
+                print("error loading trip: \(error)")
+                return
+            }
+            
+            
+        }
+    }
+    
+    func loadEntries(for trip: Trip, completion: @escaping (Error?) -> Void) {
         //guard let userID = _auth.currentUser?.uid else { return }
         fireStoreRef.collection("user").document("rwrxHDC1HTy0EtYcDBu4").collection("trip").document(trip.id).collection("entry").addSnapshotListener { (snapshot, error) in
             if let error = error {
                 print(error)
-                completion(nil, error)
+                completion(error)
                 return
             }
             guard let snapshot = snapshot else {
                 print("no snapshot when loading entry")
-                completion(nil, nil)
                 return
             }
             var entries: [Entry] = []
@@ -36,29 +47,31 @@ class TravelBookController {
                 let entry = Entry.init(with: dictionary)
                 entries.append(entry)
             }
-            completion(entries, nil)
+           
+            self.tripEntriesCache.cacheEntries(forKey: trip.id, entries: entries)
+            completion(nil)
         }
     }
     
-    func loadLatestPhotoURL(for trip: Trip, completion: @escaping (String?, Error?) -> Void) {
-        //guard let userID = _auth.currentUser?.uid else { return }
-        fireStoreRef.collection("user").document("rwrxHDC1HTy0EtYcDBu4").collection("trip").document(trip.id).collection("entry").getDocuments { (documentSnapshots, error) in
-            if let error = error {
-                print(error)
-                completion(nil, error)
-                return
-            }
-            guard let documentSnapshots = documentSnapshots else {
-                print("no snapshot when loading latest entry")
-                completion(nil, nil)
-                return
-            }
-            let dictionary = documentSnapshots.documents.last?.data()
-            let photoURLStrings = dictionary?["photoURLStrings"] as! [String]
-            let latestPhotoURLString = photoURLStrings.last
-            completion(latestPhotoURLString, nil)
-        }
-    }
+//    func loadLatestPhotoURL(for trip: Trip, completion: @escaping (String?, Error?) -> Void) {
+//        //guard let userID = _auth.currentUser?.uid else { return }
+//        fireStoreRef.collection("user").document("rwrxHDC1HTy0EtYcDBu4").collection("trip").document(trip.id).collection("entry").getDocuments { (documentSnapshots, error) in
+//            if let error = error {
+//                print(error)
+//                completion(nil, error)
+//                return
+//            }
+//            guard let documentSnapshots = documentSnapshots else {
+//                print("no snapshot when loading latest entry")
+//                completion(nil, nil)
+//                return
+//            }
+//            let dictionary = documentSnapshots.documents.last?.data()
+//            let photoURLStrings = dictionary?["photoURLStrings"] as! [String]
+//            let latestPhotoURLString = photoURLStrings.last
+//            completion(latestPhotoURLString, nil)
+//        }
+//    }
     
     func loadPhoto(at url: URL, completion: @escaping (UIImage?, Error?) -> Void) {
         URLSession.shared.dataTask(with: url) { (data, _, error) in

@@ -21,6 +21,7 @@
 		753C1069235E49160062BEB4 /* TravelBookController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753C1068235E49160062BEB4 /* TravelBookController.swift */; };
 		754580EA235F6C7200C3305C /* TripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754580E9235F6C7200C3305C /* TripView.swift */; };
 		754580ED235F8EAA00C3305C /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754580EC235F8EAA00C3305C /* UIImage+Resize.swift */; };
+		754580F123601AA100C3305C /* BYCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 754580F023601AA100C3305C /* BYCache.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,9 @@
 		753C1082235E55A70062BEB4 /* FirebaseStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		754580E9235F6C7200C3305C /* TripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripView.swift; sourceTree = "<group>"; };
 		754580EC235F8EAA00C3305C /* UIImage+Resize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
+		754580EE23601AA100C3305C /* TravelBook-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TravelBook-Bridging-Header.h"; sourceTree = "<group>"; };
+		754580EF23601AA100C3305C /* BYCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BYCache.h; sourceTree = "<group>"; };
+		754580F023601AA100C3305C /* BYCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BYCache.m; sourceTree = "<group>"; };
 		93258549FC8DE657E3918131 /* libPods-TravelBookTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TravelBookTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCBF3D53C9DA9785ED97CC67 /* Pods-TravelBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TravelBook.release.xcconfig"; path = "Target Support Files/Pods-TravelBook/Pods-TravelBook.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -185,6 +189,9 @@
 			isa = PBXGroup;
 			children = (
 				754580EC235F8EAA00C3305C /* UIImage+Resize.swift */,
+				754580EF23601AA100C3305C /* BYCache.h */,
+				754580F023601AA100C3305C /* BYCache.m */,
+				754580EE23601AA100C3305C /* TravelBook-Bridging-Header.h */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -251,6 +258,7 @@
 				TargetAttributes = {
 					753C103E235E18A00062BEB4 = {
 						CreatedOnToolsVersion = 11.0;
+						LastSwiftMigration = 1100;
 					};
 					753C105B235E33010062BEB4 = {
 						CreatedOnToolsVersion = 11.0;
@@ -373,6 +381,7 @@
 				753C1043235E18A00062BEB4 /* AppDelegate.swift in Sources */,
 				754580ED235F8EAA00C3305C /* UIImage+Resize.swift in Sources */,
 				753C1045235E18A00062BEB4 /* SceneDelegate.swift in Sources */,
+				754580F123601AA100C3305C /* BYCache.m in Sources */,
 				754580EA235F6C7200C3305C /* TripView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -533,6 +542,7 @@
 			baseConfigurationReference = 3E6FF8ADE02E0EAB452576A9 /* Pods-TravelBook.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8367QTYVY6;
 				INFOPLIST_FILE = TravelBook/Info.plist;
@@ -542,6 +552,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bradleyyin.TravelBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TravelBook/Utility/TravelBook-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -552,6 +564,7 @@
 			baseConfigurationReference = DCBF3D53C9DA9785ED97CC67 /* Pods-TravelBook.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8367QTYVY6;
 				INFOPLIST_FILE = TravelBook/Info.plist;
@@ -561,6 +574,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bradleyyin.TravelBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TravelBook/Utility/TravelBook-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
