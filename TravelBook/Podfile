@@ -10,5 +10,6 @@ target 'TravelBook' do
   pod 'Firebase/Core'
   pod 'Firebase/Firestore'
   pod 'Firebase/Storage'
+  pod 'FirebaseUI/Google'
 
 end

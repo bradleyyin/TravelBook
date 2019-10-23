@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6EC1CD172D4CA21D256818C8 /* Pods_TravelBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2082E8A1A6534CF8D305328B /* Pods_TravelBook.framework */; };
-		71A31F22A449DB4EAAA16F13 /* libPods-TravelBookTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93258549FC8DE657E3918131 /* libPods-TravelBookTests.a */; };
+		7502457D236101870013A61D /* SginInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7502457C236101870013A61D /* SginInViewController.swift */; };
 		7531D9F7235E7427005AEF63 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7531D9F6235E7427005AEF63 /* Trip.swift */; };
 		7531D9F9235F5544005AEF63 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7531D9F8235F5544005AEF63 /* MapViewController.swift */; };
 		753C1043235E18A00062BEB4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753C1042235E18A00062BEB4 /* AppDelegate.swift */; };
@@ -40,6 +40,7 @@
 /* Begin PBXFileReference section */
 		2082E8A1A6534CF8D305328B /* Pods_TravelBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TravelBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E6FF8ADE02E0EAB452576A9 /* Pods-TravelBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TravelBook.debug.xcconfig"; path = "Target Support Files/Pods-TravelBook/Pods-TravelBook.debug.xcconfig"; sourceTree = "<group>"; };
+		7502457C236101870013A61D /* SginInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SginInViewController.swift; sourceTree = "<group>"; };
 		7531D9F4235E5667005AEF63 /* FirebaseFirestore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseFirestore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7531D9F6235E7427005AEF63 /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
 		7531D9F8235F5544005AEF63 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -74,7 +75,6 @@
 		754580F5236024A000C3305C /* EntryListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryListTableViewController.swift; sourceTree = "<group>"; };
 		754580F72360CB4B00C3305C /* EntryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryDetailViewController.swift; sourceTree = "<group>"; };
 		754580F92360D25A00C3305C /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
-		93258549FC8DE657E3918131 /* libPods-TravelBookTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TravelBookTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCBF3D53C9DA9785ED97CC67 /* Pods-TravelBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TravelBook.release.xcconfig"; path = "Target Support Files/Pods-TravelBook/Pods-TravelBook.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -91,7 +91,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				71A31F22A449DB4EAAA16F13 /* libPods-TravelBookTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,7 +114,6 @@
 				753C1070235E52D80062BEB4 /* FirebaseFirestore.framework */,
 				753C1072235E52D80062BEB4 /* FirebaseStorage.framework */,
 				2082E8A1A6534CF8D305328B /* Pods_TravelBook.framework */,
-				93258549FC8DE657E3918131 /* libPods-TravelBookTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -181,6 +179,7 @@
 				7531D9F8235F5544005AEF63 /* MapViewController.swift */,
 				754580F5236024A000C3305C /* EntryListTableViewController.swift */,
 				754580F72360CB4B00C3305C /* EntryDetailViewController.swift */,
+				7502457C236101870013A61D /* SginInViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -226,6 +225,7 @@
 				753C103C235E18A00062BEB4 /* Frameworks */,
 				753C103D235E18A00062BEB4 /* Resources */,
 				0F29ECFC02C2CBD0FD4A9C73 /* [CP] Embed Pods Frameworks */,
+				A9D67EEA1FAC4663538F26A7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -240,7 +240,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 753C1065235E33010062BEB4 /* Build configuration list for PBXNativeTarget "TravelBookTests" */;
 			buildPhases = (
-				690AD7B36AC5FC6EB7493F4C /* [CP] Check Pods Manifest.lock */,
 				753C1058235E33010062BEB4 /* Sources */,
 				753C1059235E33010062BEB4 /* Frameworks */,
 				753C105A235E33010062BEB4 /* Resources */,
@@ -354,26 +353,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		690AD7B36AC5FC6EB7493F4C /* [CP] Check Pods Manifest.lock */ = {
+		A9D67EEA1FAC4663538F26A7 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TravelBook/Pods-TravelBook-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
+			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-TravelBookTests-checkManifestLockResult.txt",
+				"${PODS_ROOT}/Target Support Files/Pods-TravelBook/Pods-TravelBook-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TravelBook/Pods-TravelBook-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -392,6 +386,7 @@
 				754580ED235F8EAA00C3305C /* UIImage+Resize.swift in Sources */,
 				754580F82360CB4B00C3305C /* EntryDetailViewController.swift in Sources */,
 				754580F6236024A000C3305C /* EntryListTableViewController.swift in Sources */,
+				7502457D236101870013A61D /* SginInViewController.swift in Sources */,
 				753C1045235E18A00062BEB4 /* SceneDelegate.swift in Sources */,
 				754580F123601AA100C3305C /* BYCache.m in Sources */,
 				754580EA235F6C7200C3305C /* TripView.swift in Sources */,
