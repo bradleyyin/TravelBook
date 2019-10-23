@@ -54,8 +54,8 @@ extension MapViewController: MKMapViewDelegate {
         let detailView = TripView()
         detailView.trip = trip
         detailView.delegate = self
-        detailView.heightAnchor.constraint(equalToConstant: 300).isActive = true
-        detailView.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        detailView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        detailView.widthAnchor.constraint(equalToConstant: 200).isActive = true
         
         
         controller.loadEntries(for: trip) { (error) in

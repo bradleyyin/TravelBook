@@ -17,9 +17,17 @@ class EntryListTableViewController: UITableViewController {
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter
     }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if controller.tripEntriesCache.entries(forKey: trip.id) == nil {
+            controller.loadEntries(for: trip) { (_) in
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }
         
     }
 
@@ -76,14 +84,13 @@ class EntryListTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        
     }
-    */
+    
 
 }
