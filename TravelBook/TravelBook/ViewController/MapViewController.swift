@@ -12,6 +12,7 @@ import MapKit
 class MapViewController: UIViewController {
     
     let controller = TravelBookController()
+    var selectedTrip: Trip!
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -52,6 +53,7 @@ extension MapViewController: MKMapViewDelegate {
         annotationView.canShowCallout = true
         let detailView = TripView()
         detailView.trip = trip
+        detailView.delegate = self
         detailView.heightAnchor.constraint(equalToConstant: 300).isActive = true
         detailView.widthAnchor.constraint(equalToConstant: 300).isActive = true
         
@@ -81,9 +83,7 @@ extension MapViewController: MKMapViewDelegate {
         }
         
         annotationView.detailCalloutAccessoryView = detailView
-        
-        
-        
+
         return annotationView
     }
     
@@ -91,12 +91,15 @@ extension MapViewController: MKMapViewDelegate {
 
 extension MapViewController: TripViewDelegate {
     func didTapImage(trip: Trip) {
+        selectedTrip = trip
         performSegue(withIdentifier: "MapToEntryShowSegue", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "MapToEntryShowSegue" {
-            
+            guard let entryListVC = segue.destination as? EntryListTableViewController else { return }
+            entryListVC.trip = selectedTrip
+            entryListVC.controller = controller
         }
     }
 }

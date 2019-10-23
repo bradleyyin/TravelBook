@@ -33,6 +33,7 @@ class TripView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupSubViews()
+        setupGestureRecognizer()
     }
     
     private func setupSubViews() {

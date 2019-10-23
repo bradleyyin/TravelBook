@@ -12,6 +12,11 @@ class EntryListTableViewController: UITableViewController {
     
     var trip: Trip!
     var controller: TravelBookController!
+    var dateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,18 +27,19 @@ class EntryListTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return controller.tripEntriesCache.entries(forKey: trip.id)?.count ?? 0
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
+        let cell = tableView.dequeueReusableCell(withIdentifier: "EntryCell", for: indexPath)
+        guard let entry = controller.tripEntriesCache.entries(forKey: trip.id)?[indexPath.row] as? Entry else { return cell }
+        
+        cell.textLabel?.text = dateFormatter.string(from: entry.date)
 
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.
