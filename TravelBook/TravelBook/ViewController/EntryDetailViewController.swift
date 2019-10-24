@@ -50,9 +50,12 @@ class EntryDetailViewController: UIViewController {
     }
     
     func updateViews() {
-        guard let entry = entry else { return }
-        dateTextField.text = formatter.string(from: entry.date)
-        noteTextView.text = entry.notes
+        if let entry = entry{
+            dateTextField.text = formatter.string(from: entry.date)
+            noteTextView.text = entry.notes
+        } else {
+            dateTextField.text = formatter.string(from: Date())
+        }
     }
     
     func showDatePicker(){
@@ -114,6 +117,7 @@ class EntryDetailViewController: UIViewController {
     }
     
     @IBAction func saveEntry(_ sender: Any) {
+        guard photoURLStrings.count == photos.count else { print("string not same count"); return }
         let date = datePicker.date
         let notes = noteTextView.text
         

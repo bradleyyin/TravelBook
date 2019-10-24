@@ -29,6 +29,12 @@ class EntryListTableViewController: UITableViewController {
             }
         }
         
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadEntries), name: Notification.Name.init(rawValue: "entriesReeload"), object: nil)
+        
+    }
+    
+    @objc func reloadEntries() {
+        self.tableView.reloadData()
     }
 
     // MARK: - Table view data source
@@ -95,6 +101,10 @@ class EntryListTableViewController: UITableViewController {
             detailVC.controller = controller
             detailVC.trip = trip
             
+        } else if segue.identifier == "AddEntryShowSegue" {
+            guard let detailVC = segue.destination as? EntryDetailViewController else { return }
+            detailVC.controller = controller
+            detailVC.trip = trip
         }
     }
     

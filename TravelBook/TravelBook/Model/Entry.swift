@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 struct Entry {
     var date: Date
@@ -22,7 +23,8 @@ struct Entry {
     }
     
     init(with dictionary: [String: Any]) {
-        self.date = Date()
+        let timeStamp = dictionary["date"] as! Timestamp
+        self.date = timeStamp.dateValue()
         self.photoURLStrings = dictionary["photoURLStrings"] as! [String]
         self.notes = dictionary["notes"] as! String
         self.id = dictionary["id"] as! String

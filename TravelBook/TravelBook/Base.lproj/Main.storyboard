@@ -75,7 +75,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="WsF-T2-6Qw">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="bjv-8y-ecZ"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="bjv-8y-ecZ">
+                            <connections>
+                                <segue destination="fme-5k-gOp" kind="show" identifier="AddEntryShowSegue" id="lIf-TK-aEo"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="waW-Cz-WEo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -142,12 +146,11 @@
                                 </cells>
                             </collectionView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="lbh-Ao-WFJ">
-                                <rect key="frame" x="50" y="549" width="275" height="200"/>
+                                <rect key="frame" x="50" y="599" width="275" height="150"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="zek-Mf-apm"/>
+                                    <constraint firstAttribute="height" constant="150" id="zek-Mf-apm"/>
                                 </constraints>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -159,19 +162,27 @@
                                     <action selector="addPhoto:" destination="fme-5k-gOp" eventType="touchUpInside" id="q0L-qU-za1"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notes:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cbt-bq-gLp">
+                                <rect key="frame" x="50" y="558.66666666666663" width="50.333333333333343" height="20.333333333333371"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="z8R-Mw-BQk" firstAttribute="top" secondItem="LBG-iL-Tmc" secondAttribute="bottom" constant="20" id="7xU-dE-1Fy"/>
                             <constraint firstItem="LBG-iL-Tmc" firstAttribute="top" secondItem="BeV-is-Q8B" secondAttribute="top" constant="20" id="ANY-B5-H85"/>
                             <constraint firstItem="lbh-Ao-WFJ" firstAttribute="leading" secondItem="BeV-is-Q8B" secondAttribute="leading" constant="50" id="Akm-Wz-a8I"/>
+                            <constraint firstItem="Cbt-bq-gLp" firstAttribute="leading" secondItem="BeV-is-Q8B" secondAttribute="leading" constant="50" id="Fte-RT-2iz"/>
                             <constraint firstItem="z8R-Mw-BQk" firstAttribute="leading" secondItem="BeV-is-Q8B" secondAttribute="leading" constant="50" id="OFo-sG-9LQ"/>
                             <constraint firstItem="BeV-is-Q8B" firstAttribute="trailing" secondItem="z8R-Mw-BQk" secondAttribute="trailing" constant="50" id="VmH-EE-FNx"/>
                             <constraint firstItem="156-Ex-Jry" firstAttribute="top" secondItem="z8R-Mw-BQk" secondAttribute="bottom" constant="10" id="Wxl-O2-xTg"/>
                             <constraint firstItem="BeV-is-Q8B" firstAttribute="trailing" secondItem="LBG-iL-Tmc" secondAttribute="trailing" constant="50" id="bNu-Ju-v2U"/>
-                            <constraint firstItem="lbh-Ao-WFJ" firstAttribute="top" secondItem="156-Ex-Jry" secondAttribute="bottom" constant="10" id="cF5-6k-rSX"/>
                             <constraint firstItem="BeV-is-Q8B" firstAttribute="trailing" secondItem="lbh-Ao-WFJ" secondAttribute="trailing" constant="50" id="gmD-g9-FCw"/>
                             <constraint firstItem="156-Ex-Jry" firstAttribute="centerX" secondItem="egx-Ce-u3l" secondAttribute="centerX" id="pj3-Pw-Wi7"/>
+                            <constraint firstItem="lbh-Ao-WFJ" firstAttribute="top" secondItem="Cbt-bq-gLp" secondAttribute="bottom" constant="20" id="rTh-nx-SHA"/>
+                            <constraint firstItem="lbh-Ao-WFJ" firstAttribute="top" secondItem="156-Ex-Jry" secondAttribute="bottom" constant="60" id="xtF-y8-72g"/>
                             <constraint firstItem="lbh-Ao-WFJ" firstAttribute="bottom" secondItem="BeV-is-Q8B" secondAttribute="bottom" constant="20" id="yCi-JS-azl"/>
                             <constraint firstItem="LBG-iL-Tmc" firstAttribute="leading" secondItem="BeV-is-Q8B" secondAttribute="leading" constant="50" id="zDk-9K-pf6"/>
                         </constraints>
@@ -260,4 +271,7 @@
             <point key="canvasLocation" x="1144.9275362318842" y="172.76785714285714"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="lIf-TK-aEo"/>
+    </inferredMetricsTieBreakers>
 </document>
