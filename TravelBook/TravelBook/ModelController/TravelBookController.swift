@@ -17,7 +17,7 @@ class TravelBookController {
     var travelCache = BYCache()
     let storageRef = Storage.storage().reference()
     let fireStoreRef = Firestore.firestore()
-    //let userID = "rwrxHDC1HTy0EtYcDBu4"
+    let userID = "rwrxHDC1HTy0EtYcDBu4"
     
     //    init() {
     //        loadTrips { (error) in
@@ -31,7 +31,7 @@ class TravelBookController {
     //    }
     
     func loadEntries(for trip: Trip, completion: @escaping (Error?) -> Void) {
-        guard let userID = Auth.auth().currentUser?.uid else { return }
+        //guard let userID = Auth.auth().currentUser?.uid else { return }
         fireStoreRef.collection("user").document(userID).collection("trip").document(trip.id).collection("entry").addSnapshotListener { (snapshot, error) in
             if let error = error {
                 print(error)
@@ -93,7 +93,7 @@ class TravelBookController {
     
     func uploadPhoto(photo: UIImage, completion: @escaping (URL?) -> Void) {
         
-        guard let userID = Auth.auth().currentUser?.uid else { return }
+        //guard let userID = Auth.auth().currentUser?.uid else { return }
         
         let photoID = UUID().uuidString
         
@@ -149,7 +149,7 @@ class TravelBookController {
     //    }
     
     func addEntry(to trip: Trip, entry: Entry, completion: @escaping () -> Void = {}) {
-        guard let userID = Auth.auth().currentUser?.uid else { return }
+        //guard let userID = Auth.auth().currentUser?.uid else { return }
         fireStoreRef.collection("user").document(userID).collection("trip").document(trip.id).collection("entry").document(entry.id).setData(entry.toDictionary(), completion: { (error) in
             if let error = error {
                 fatalError("fail to add entry: \(error)")
@@ -159,7 +159,7 @@ class TravelBookController {
     }
     
     func loadTrips() {
-        guard let userID = Auth.auth().currentUser?.uid else { return }
+        //guard let userID = Auth.auth().currentUser?.uid else { return }
         fireStoreRef.collection("user").document(userID).collection("trip").addSnapshotListener { (snapshot, error) in
             if let error = error {
                 print("error loading trips:\(error)")
@@ -179,7 +179,7 @@ class TravelBookController {
     }
     
     func addTrip(trip: Trip) {
-        guard let userID = Auth.auth().currentUser?.uid else { return }
+        //guard let userID = Auth.auth().currentUser?.uid else { return }
         fireStoreRef.collection("user").document(userID).collection("trip").document(trip.id).setData(trip.toDictionary()) { (error) in
             if let error = error {
                 fatalError("fail to add trip: \(error)")
