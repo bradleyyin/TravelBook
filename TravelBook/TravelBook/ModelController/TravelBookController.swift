@@ -164,6 +164,7 @@ class TravelBookController {
                 return
             }
             guard let snapshot = snapshot else { return }
+            self.trips.removeAll()
             for documentSnapshot in snapshot.documents {
                 let dictionary = documentSnapshot.data()
                 let trip = Trip.init(with: dictionary)
