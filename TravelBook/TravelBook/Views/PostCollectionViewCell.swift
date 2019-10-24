@@ -23,4 +23,8 @@ class PostCollectionViewCell: UICollectionViewCell {
         
         nameLabel.text = trip.name
     }
+    override func prepareForReuse() {
+           super.prepareForReuse()
+           imageView.image = nil
+       }
 }

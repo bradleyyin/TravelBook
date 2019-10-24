@@ -17,21 +17,21 @@ class TravelBookController {
     var travelCache = BYCache()
     let storageRef = Storage.storage().reference()
     let fireStoreRef = Firestore.firestore()
-    let userID = "rwrxHDC1HTy0EtYcDBu4"
+    //let userID = "rwrxHDC1HTy0EtYcDBu4"
     
-//    init() {
-//        loadTrips { (error) in
-//            if let error = error {
-//                print("error loading trip: \(error)")
-//                return
-//            }
-//            
-//            
-//        }
-//    }
+    //    init() {
+    //        loadTrips { (error) in
+    //            if let error = error {
+    //                print("error loading trip: \(error)")
+    //                return
+    //            }
+    //
+    //
+    //        }
+    //    }
     
     func loadEntries(for trip: Trip, completion: @escaping (Error?) -> Void) {
-        //guard let userID = _auth.currentUser?.uid else { return }
+        guard let userID = Auth.auth().currentUser?.uid else { return }
         fireStoreRef.collection("user").document(userID).collection("trip").document(trip.id).collection("entry").addSnapshotListener { (snapshot, error) in
             if let error = error {
                 print(error)
@@ -48,7 +48,7 @@ class TravelBookController {
                 let entry = Entry.init(with: dictionary)
                 entries.append(entry)
             }
-           
+            
             self.travelCache.cacheValues(forKey: trip.id, values: entries)
             print("load entries")
             NotificationCenter.default.post(name: Notification.Name.init(rawValue: "entriesReeload"), object: nil)
@@ -56,25 +56,25 @@ class TravelBookController {
         }
     }
     
-//    func loadLatestPhotoURL(for trip: Trip, completion: @escaping (String?, Error?) -> Void) {
-//        //guard let userID = _auth.currentUser?.uid else { return }
-//        fireStoreRef.collection("user").document("rwrxHDC1HTy0EtYcDBu4").collection("trip").document(trip.id).collection("entry").getDocuments { (documentSnapshots, error) in
-//            if let error = error {
-//                print(error)
-//                completion(nil, error)
-//                return
-//            }
-//            guard let documentSnapshots = documentSnapshots else {
-//                print("no snapshot when loading latest entry")
-//                completion(nil, nil)
-//                return
-//            }
-//            let dictionary = documentSnapshots.documents.last?.data()
-//            let photoURLStrings = dictionary?["photoURLStrings"] as! [String]
-//            let latestPhotoURLString = photoURLStrings.last
-//            completion(latestPhotoURLString, nil)
-//        }
-//    }
+    //    func loadLatestPhotoURL(for trip: Trip, completion: @escaping (String?, Error?) -> Void) {
+    //        //guard let userID = _auth.currentUser?.uid else { return }
+    //        fireStoreRef.collection("user").document("rwrxHDC1HTy0EtYcDBu4").collection("trip").document(trip.id).collection("entry").getDocuments { (documentSnapshots, error) in
+    //            if let error = error {
+    //                print(error)
+    //                completion(nil, error)
+    //                return
+    //            }
+    //            guard let documentSnapshots = documentSnapshots else {
+    //                print("no snapshot when loading latest entry")
+    //                completion(nil, nil)
+    //                return
+    //            }
+    //            let dictionary = documentSnapshots.documents.last?.data()
+    //            let photoURLStrings = dictionary?["photoURLStrings"] as! [String]
+    //            let latestPhotoURLString = photoURLStrings.last
+    //            completion(latestPhotoURLString, nil)
+    //        }
+    //    }
     
     func loadPhoto(at url: URL, completion: @escaping (UIImage?, Error?) -> Void) {
         URLSession.shared.dataTask(with: url) { (data, _, error) in
@@ -92,7 +92,8 @@ class TravelBookController {
     }
     
     func uploadPhoto(photo: UIImage, completion: @escaping (URL?) -> Void) {
-        guard let currentUser = Auth.auth().currentUser else { return }
+        
+        guard let userID = Auth.auth().currentUser?.uid else { return }
         
         let photoID = UUID().uuidString
         
@@ -131,23 +132,24 @@ class TravelBookController {
         uploadTask.resume()
     }
     
-//    func uploadPhotos(photos: [UIImage], completion: @escaping ([String]) -> Void) {
-//        let dispatchGroup = DispatchGroup()
-//        var photoURLStrings: [String] = []
-//        for photo in photos {
-//            dispatchGroup.enter()
-//            uploadPhoto(photo: photo) { (url) in
-//                guard let url = url else { return }
-//                let photoURLString = url.path
-//                photoURLStrings.append(photoURLString)
-//                dispatchGroup.leave()
-//            }
-//        }
-//        dispatchGroup.wait()
-//        completion(photoURLStrings)
-//    }
+    //    func uploadPhotos(photos: [UIImage], completion: @escaping ([String]) -> Void) {
+    //        let dispatchGroup = DispatchGroup()
+    //        var photoURLStrings: [String] = []
+    //        for photo in photos {
+    //            dispatchGroup.enter()
+    //            uploadPhoto(photo: photo) { (url) in
+    //                guard let url = url else { return }
+    //                let photoURLString = url.path
+    //                photoURLStrings.append(photoURLString)
+    //                dispatchGroup.leave()
+    //            }
+    //        }
+    //        dispatchGroup.wait()
+    //        completion(photoURLStrings)
+    //    }
     
     func addEntry(to trip: Trip, entry: Entry, completion: @escaping () -> Void = {}) {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
         fireStoreRef.collection("user").document(userID).collection("trip").document(trip.id).collection("entry").document(entry.id).setData(entry.toDictionary(), completion: { (error) in
             if let error = error {
                 fatalError("fail to add entry: \(error)")
@@ -157,7 +159,7 @@ class TravelBookController {
     }
     
     func loadTrips() {
-        //guard let userID = _auth.currentUser?.uid else { return }
+        guard let userID = Auth.auth().currentUser?.uid else { return }
         fireStoreRef.collection("user").document(userID).collection("trip").addSnapshotListener { (snapshot, error) in
             if let error = error {
                 print("error loading trips:\(error)")
@@ -177,6 +179,7 @@ class TravelBookController {
     }
     
     func addTrip(trip: Trip) {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
         fireStoreRef.collection("user").document(userID).collection("trip").document(trip.id).setData(trip.toDictionary()) { (error) in
             if let error = error {
                 fatalError("fail to add trip: \(error)")
