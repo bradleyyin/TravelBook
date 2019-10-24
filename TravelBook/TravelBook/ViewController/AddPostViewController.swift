@@ -61,33 +61,38 @@ extension AddPostViewController: UISearchBarDelegate {
 extension AddPostViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 1
-        } else if section == 1 {
+//        if section == 0 {
+//            return 1
+//        } else if section == 1 {
             return placemarks.count
-        } else {
-            return 0
-        }
+//        } else {
+//            return 0
+//        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlaceMarkCell", for: indexPath)
-        if indexPath.section == 0 {
-            cell.textLabel?.text = "Use Current Location"
-        } else if indexPath.section == 1 {
+//        if indexPath.section == 0 {
+//            cell.textLabel?.text = "Use Current Location"
+//        } else if indexPath.section == 1 {
             cell.textLabel?.text = placemarks[indexPath.row].name
-        }
+//        }
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 {
-            
-        }
+//        if indexPath.section == 0 {
+//
+//        }
+        let placemark = placemarks[indexPath.row]
+        guard let latitude = placemark.location?.coordinate.latitude, let longitude = placemark.location?.coordinate.longitude, let name = placemark.name else { return }
+        let trip = Trip(latitude: latitude, longitude: longitude, name: name)
+        controller.addTrip(trip: trip)
+        self.navigationController?.popViewController(animated: true)
     }
     
     
