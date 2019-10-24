@@ -15,14 +15,18 @@ class EntryDetailViewController: UIViewController {
     @IBOutlet weak var noteTextView: UITextView!
     
     var entry: Entry?
+    var trip: Trip!
     var controller: TravelBookController!
     var photos: [UIImage] = []
+    var photoURLStrings: [String] = []
     var datePicker: UIDatePicker!
     var formatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter
     }
+    
+    var imagePicker: UIImagePickerController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,15 +35,27 @@ class EntryDetailViewController: UIViewController {
         self.datePicker = UIDatePicker()
         showDatePicker()
         updateViews()
+        setupImagePicker()
         loadPhotos()
+        
         
         // Do any additional setup after loading the view.
     }
     
+    private func setupImagePicker() {
+        imagePicker = UIImagePickerController()
+        imagePicker.allowsEditing = true
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+    }
+    
     func updateViews() {
-        guard let entry = entry else { return }
-        dateTextField.text = formatter.string(from: entry.date)
-        noteTextView.text = entry.notes
+        if let entry = entry{
+            dateTextField.text = formatter.string(from: entry.date)
+            noteTextView.text = entry.notes
+        } else {
+            dateTextField.text = formatter.string(from: Date())
+        }
     }
     
     func showDatePicker(){
@@ -73,6 +89,7 @@ class EntryDetailViewController: UIViewController {
     
     func loadPhotos() {
         guard let entry = entry else { return }
+        photoURLStrings = entry.photoURLStrings
         if controller.travelCache.values(forKey: entry.id) == nil {
             for photoString in entry.photoURLStrings {
                 guard let url = URL(string: photoString) else { continue }
@@ -95,7 +112,34 @@ class EntryDetailViewController: UIViewController {
         
     }
     
-
+    @IBAction func addPhoto(_ sender: Any) {
+        self.present(imagePicker, animated: true)
+    }
+    
+    @IBAction func saveEntry(_ sender: Any) {
+        guard photoURLStrings.count == photos.count else { print("string not same count"); return }
+        let date = datePicker.date
+        let notes = noteTextView.text
+        
+        if var entry = self.entry {
+            entry.photoURLStrings = photoURLStrings
+            entry.notes = notes ?? ""
+            entry.date = date
+            self.controller.addEntry(to: self.trip, entry: entry)
+            controller.travelCache.cacheValues(forKey: entry.id, values: photos)
+            self.navigationController?.popViewController(animated: true)
+        } else {
+            let entry = Entry(date: date, photoURLStrings: photoURLStrings, notes: notes ?? "")
+            self.controller.addEntry(to: self.trip, entry: entry)
+            controller.travelCache.cacheValues(forKey: entry.id, values: photos)
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        
+        
+    }
+    
+    
     /*
     // MARK: - Navigation
 
@@ -122,4 +166,23 @@ extension EntryDetailViewController: UICollectionViewDataSource, UICollectionVie
     }
     
     
+}
+
+extension EntryDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        imagePicker.dismiss(animated: true, completion: nil)
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let userPickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
+            photos.append(userPickedImage)
+            controller.uploadPhoto(photo: userPickedImage) { (url) in
+                guard let url = url else { return }
+                
+                self.photoURLStrings.append(url.absoluteString)
+            }
+            imagePicker.dismiss(animated: true) {
+                self.photoCollectionView.reloadData()
+            }
+        }
+    }
 }

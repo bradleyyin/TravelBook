@@ -30,6 +30,10 @@ class Trip: NSObject {
         self.name = dictionary["name"] as! String
         self.id = dictionary["id"] as! String
     }
+    
+    func toDictionary() -> [String: Any] {
+        return ["latitude": latitude, "longitude": longitude, "name": name, "id": id]
+    }
 }
 
 extension Trip: MKAnnotation {
