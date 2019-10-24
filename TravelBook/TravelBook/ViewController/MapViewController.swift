@@ -11,7 +11,7 @@ import MapKit
 
 class MapViewController: UIViewController {
     
-    let controller = TravelBookController()
+    var controller: TravelBookController!
     var selectedTrip: Trip!
     
     @IBOutlet weak var mapView: MKMapView!
