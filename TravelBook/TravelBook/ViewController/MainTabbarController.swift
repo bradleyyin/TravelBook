@@ -11,13 +11,14 @@ import UIKit
 
 class MainTabbarController: UITabBarController {
     let controller = TravelBookController()
-     override func viewDidLoad() {
-           super.viewDidLoad()
-           print(self.viewControllers)
-           guard let postNavController = self.viewControllers?[0] as? PostNavigationController, let mapNavController = self.viewControllers?[1] as? MapNavigationController else { return }
-           postNavController.controller = controller
-           mapNavController.controller = controller
-           
-       }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        print(self.viewControllers)
+        controller.loadTrips()
+        guard let postNavController = self.viewControllers?[0] as? PostNavigationController, let mapNavController = self.viewControllers?[1] as? MapNavigationController else { return }
+        postNavController.controller = controller
+        mapNavController.controller = controller
+        
+    }
     
 }

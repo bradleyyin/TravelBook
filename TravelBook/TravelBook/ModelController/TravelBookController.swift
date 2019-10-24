@@ -156,11 +156,11 @@ class TravelBookController {
         })
     }
     
-    func loadTrips(completion: @escaping (Error?) -> Void) {
+    func loadTrips() {
         //guard let userID = _auth.currentUser?.uid else { return }
         fireStoreRef.collection("user").document(userID).collection("trip").addSnapshotListener { (snapshot, error) in
             if let error = error {
-                completion(error)
+                print("error loading trips:\(error)")
                 return
             }
             guard let snapshot = snapshot else { return }
@@ -170,8 +170,16 @@ class TravelBookController {
                 self.trips.append(trip)
                 
             }
-            completion(nil)
+            NotificationCenter.default.post(name: Notification.Name.init(rawValue: "tripsReload"), object: nil)
         }
         
+    }
+    
+    func addTrip(trip: Trip) {
+        fireStoreRef.collection("user").document(userID).collection("trip").document(trip.id).setData(trip.toDictionary()) { (error) in
+            if let error = error {
+                fatalError("fail to add trip: \(error)")
+            }
+        }
     }
 }

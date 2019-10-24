@@ -21,22 +21,29 @@ class MapViewController: UIViewController {
         
         mapView.delegate = self
         
-        mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: "TripView")
-        //mapView.addAnnotations(controller.trips)
-        controller.loadTrips { (error) in
-            if let error = error {
-                print("Error loading trip: \(error)")
-                return
-            }
-            DispatchQueue.main.async {
-                self.mapView.addAnnotations(self.controller.trips)
-            }
-            
-        }
         
+        mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: "TripView")
+        mapView.addAnnotations(controller.trips)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadMap), name: Notification.Name.init(rawValue: "tripsReload"), object: nil)
+        
+//        controller.loadTrips { (error) in
+//            if let error = error {
+//                print("Error loading trip: \(error)")
+//                return
+//            }
+//            DispatchQueue.main.async {
+//                self.mapView.addAnnotations(self.controller.trips)
+//            }
+//            
+//        }
+        
+    }
+    @objc func reloadMap() {
+        mapView.addAnnotations(controller.trips)
     }
 
 }
+
 
 extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
@@ -57,14 +64,10 @@ extension MapViewController: MKMapViewDelegate {
         detailView.heightAnchor.constraint(equalToConstant: 200).isActive = true
         detailView.widthAnchor.constraint(equalToConstant: 200).isActive = true
         
-        
-        controller.loadEntries(for: trip) { (error) in
-            if let error = error {
-                print("Error loading entries: \(error)")
-                return
-            }
-            guard let entry = self.controller.travelCache.values(forKey: trip.id)?.last as? Entry else { return }
-            guard let photoURLString = entry.photoURLStrings.last, let url = URL(string: photoURLString) else { return }
+        if let entry = controller.travelCache.values(forKey: trip.id)?.last as? Entry {
+            
+            guard let photoURLString = entry.photoURLStrings.last, let url = URL(string: photoURLString) else { return nil}
+            
             self.controller.loadPhoto(at: url) { (photo, error) in
                 if let error = error {
                     print("error loading photo: \(error)")
@@ -80,8 +83,33 @@ extension MapViewController: MKMapViewDelegate {
                     
                 }
             }
+            
+        } else {
+            controller.loadEntries(for: trip) { (error) in
+                if let error = error {
+                    print("Error loading entries: \(error)")
+                    return
+                }
+                guard let entry = self.controller.travelCache.values(forKey: trip.id)?.last as? Entry else { return }
+                guard let photoURLString = entry.photoURLStrings.last, let url = URL(string: photoURLString) else { return }
+                self.controller.loadPhoto(at: url) { (photo, error) in
+                    if let error = error {
+                        print("error loading photo: \(error)")
+                        return
+                    }
+                    detailView.photo = photo
+                    DispatchQueue.main.async {
+                        mapView.selectAnnotation(annotation, animated: true)
+                        //annotationView.image = photo?.resizeImage(targetSize: CGSize(width: 100, height: 100))
+                        //annotationView.glyphImage = nil
+                        //annotationView.glyphTintColor = .clear
+                        //annotationView.markerTintColor = .clear
+                        
+                    }
+                }
+            }
+
         }
-        
         annotationView.detailCalloutAccessoryView = detailView
 
         return annotationView
