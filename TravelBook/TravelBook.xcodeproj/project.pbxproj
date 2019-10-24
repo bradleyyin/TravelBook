@@ -16,6 +16,7 @@
 		7502458723616F3F0013A61D /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7502458623616F3F0013A61D /* PostCollectionViewCell.swift */; };
 		750245892361756D0013A61D /* AddPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750245882361756D0013A61D /* AddPostViewController.swift */; };
 		7502458B236177170013A61D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7502458A236177170013A61D /* MapKit.framework */; };
+		7502458D2361FF4C0013A61D /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 7502458C2361FF4C0013A61D /* .gitignore */; };
 		7531D9F7235E7427005AEF63 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7531D9F6235E7427005AEF63 /* Trip.swift */; };
 		7531D9F9235F5544005AEF63 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7531D9F8235F5544005AEF63 /* MapViewController.swift */; };
 		753C1043235E18A00062BEB4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753C1042235E18A00062BEB4 /* AppDelegate.swift */; };
@@ -55,6 +56,7 @@
 		7502458623616F3F0013A61D /* PostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewCell.swift; sourceTree = "<group>"; };
 		750245882361756D0013A61D /* AddPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostViewController.swift; sourceTree = "<group>"; };
 		7502458A236177170013A61D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		7502458C2361FF4C0013A61D /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		7531D9F4235E5667005AEF63 /* FirebaseFirestore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseFirestore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7531D9F6235E7427005AEF63 /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
 		7531D9F8235F5544005AEF63 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 		753C1036235E18A00062BEB4 = {
 			isa = PBXGroup;
 			children = (
+				7502458C2361FF4C0013A61D /* .gitignore */,
 				753C1041235E18A00062BEB4 /* TravelBook */,
 				753C1040235E18A00062BEB4 /* Products */,
 				CB52B1B12433FF7D3CD0A70F /* Pods */,
@@ -319,6 +322,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7502458D2361FF4C0013A61D /* .gitignore in Resources */,
 				753C1057235E1A430062BEB4 /* GoogleService-Info.plist in Resources */,
 				753C104F235E18A60062BEB4 /* LaunchScreen.storyboard in Resources */,
 				753C104C235E18A60062BEB4 /* Assets.xcassets in Resources */,
@@ -579,6 +583,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 8367QTYVY6;
 				INFOPLIST_FILE = TravelBook/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -601,6 +606,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 8367QTYVY6;
 				INFOPLIST_FILE = TravelBook/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
