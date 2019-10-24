@@ -6,10 +6,10 @@ target 'TravelBook' do
   use_frameworks!
 
   # Pods for TravelBook
-  pod 'Firebase/Auth', '~> 6.11.0'
-  pod 'Firebase/Core', '~> 6.11.0'
-  pod 'Firebase/Firestore', '~> 6.11.0'
-  pod 'Firebase/Storage', '~> 6.11.0'
-  pod 'FirebaseUI/Google'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Core'
+  pod 'Firebase/Firestore'
+  pod 'Firebase/Storage'
+  pod 'GoogleSignIn'
 
 end
