@@ -284,6 +284,7 @@
                                 <connections>
                                     <outlet property="imageView" destination="3Vr-fa-MKO" id="aLl-ev-njE"/>
                                     <outlet property="nameLabel" destination="Yzr-eN-fI7" id="1KF-42-dt4"/>
+                                    <segue destination="ibE-pS-VDJ" kind="show" identifier="PostToEntryShowSegue" id="gn6-eW-fJp"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -423,5 +424,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="lIf-TK-aEo"/>
+        <segue reference="gn6-eW-fJp"/>
     </inferredMetricsTieBreakers>
 </document>
