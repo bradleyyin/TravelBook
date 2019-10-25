@@ -83,6 +83,7 @@ class EntryCollectionViewCell: UICollectionViewCell {
                 }
             }
         } else {
+            print("load photos from cache")
             photos = controller.travelCache.values(forKey: entry.id) as? [UIImage] ?? []
             self.photoCollectionView.reloadData()
             //self.photoCollectionViewHeightConstraint.constant += 300

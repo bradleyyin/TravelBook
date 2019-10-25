@@ -35,6 +35,7 @@ class AddEntryViewController: UIViewController {
         photoTableView.dataSource = self
         self.datePicker = UIDatePicker()
         showDatePicker()
+        setupDoneForNote()
         updateViews()
         noteTextView.delegate = self
         noteTextView.textColor = .lightGray
@@ -79,6 +80,16 @@ class AddEntryViewController: UIViewController {
         toolbar.setItems([cancelButton,space,doneButton], animated: false)
         dateTextField.inputAccessoryView = toolbar
         dateTextField.inputView = datePicker
+    }
+    
+    func setupDoneForNote() {
+       let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(cancelDatePicker))
+        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        toolbar.setItems([space,doneButton], animated: false)
+        noteTextView.inputAccessoryView = toolbar
+        titleTextField.inputAccessoryView = toolbar
     }
     
     @objc func doneDatePicker(){

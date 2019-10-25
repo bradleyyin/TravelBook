@@ -50,7 +50,7 @@ class TravelBookController {
             
             self.travelCache.cacheValues(forKey: trip.id, values: entries)
             print("load entries")
-            NotificationCenter.default.post(name: Notification.Name.init(rawValue: "entriesReeload"), object: nil)
+            NotificationCenter.default.post(name: Notification.Name.init(rawValue: "entriesReload"), object: nil)
             completion(nil)
         }
     }
