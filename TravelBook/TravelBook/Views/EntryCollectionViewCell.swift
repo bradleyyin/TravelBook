@@ -26,7 +26,7 @@ class EntryCollectionViewCell: UICollectionViewCell {
     
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MM-dd hh:mm"
+        formatter.dateFormat = "MM/dd hh:mm"
         return formatter
     }
     @IBOutlet weak var dateLabel: UILabel!

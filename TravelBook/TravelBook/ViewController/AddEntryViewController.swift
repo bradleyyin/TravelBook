@@ -41,10 +41,6 @@ class AddEntryViewController: UIViewController {
         noteTextView.textColor = .lightGray
         photoTableView.separatorStyle = .none
         setupImagePicker()
-        loadPhotos()
-        
-        
-        // Do any additional setup after loading the view.
     }
     
     private func setupImagePicker() {
@@ -102,30 +98,6 @@ class AddEntryViewController: UIViewController {
         self.view.endEditing(true)
     }
     
-    func loadPhotos() {
-        guard let entry = entry else { return }
-        photoURLStrings = entry.photoURLStrings
-        if controller.travelCache.values(forKey: entry.id) == nil {
-            for photoString in entry.photoURLStrings {
-                guard let url = URL(string: photoString) else { continue }
-                controller.loadPhoto(at: url) { (photo, error) in
-                    if let error = error {
-                        print("Error loading photos \(error)")
-                        return
-                    }
-                    guard let photo = photo else { return }
-                    self.photos.append(photo)
-                    DispatchQueue.main.async {
-                        self.photoTableView.reloadData()
-                    }
-                }
-            }
-        } else {
-            photos = controller.travelCache.values(forKey: entry.id) as? [UIImage] ?? []
-            self.photoTableView.reloadData()
-        }
-        
-    }
     @IBAction func addPhoto(_ sender: Any) {
         self.present(imagePicker, animated: true)
     }

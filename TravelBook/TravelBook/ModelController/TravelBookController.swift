@@ -97,7 +97,9 @@ class TravelBookController {
         let photoID = UUID().uuidString
         
         let photoRef = storageRef.child("photos").child(userID).child(photoID)
-        guard let photoData = photo.pngData() else { return }
+        let resizedPhoto = photo.imageByScaling(toSize: CGSize(width: 300, height: 300))
+        let flattenedPhoto = resizedPhoto?.flattened
+        guard let photoData = flattenedPhoto?.jpegData(compressionQuality: 1.0) else { return }
         
         let uploadTask = photoRef.putData(photoData, metadata: nil) { (metadata, error) in
             if let error = error {
