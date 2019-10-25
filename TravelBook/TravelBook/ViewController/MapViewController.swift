@@ -125,9 +125,9 @@ extension MapViewController: TripViewDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "MapToEntryShowSegue" {
-            guard let entryListVC = segue.destination as? EntryListTableViewController else { return }
-            entryListVC.trip = selectedTrip
-            entryListVC.controller = controller
+            guard let entryVC = segue.destination as? EntriesViewController else { return }
+            entryVC.trip = selectedTrip
+            entryVC.controller = controller
         }
     }
 }

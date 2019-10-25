@@ -10,21 +10,20 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-class PostCollectionViewController: UICollectionViewController {
+class PostTableViewController: UITableViewController {
     var controller: TravelBookController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         NotificationCenter.default.addObserver(self, selector: #selector(reloadPosts), name: Notification.Name.init(rawValue: "tripsReload"), object: nil)
-
-        // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        tableView.separatorStyle = .none
+        
 
         // Do any additional setup after loading the view.
     }
     @objc func reloadPosts() {
-        self.collectionView.reloadData()
+        self.tableView.reloadData()
     }
 
  
@@ -36,9 +35,9 @@ class PostCollectionViewController: UICollectionViewController {
             guard let addVC = segue.destination as? AddPostViewController else { return }
             addVC.controller = controller
         } else if segue.identifier == "PostToEntryShowSegue" {
-            guard let entryListVC = segue.destination as? EntryListTableViewController, let indexPath = collectionView.indexPathsForSelectedItems?.first else { return }
-            entryListVC.trip = controller.trips[indexPath.item]
-            entryListVC.controller = controller
+            guard let entryVC = segue.destination as? EntriesViewController, let indexPath = tableView.indexPathForSelectedRow else { return }
+            entryVC.trip = controller.trips[indexPath.item]
+            entryVC.controller = controller
         }
     }
   
@@ -46,21 +45,21 @@ class PostCollectionViewController: UICollectionViewController {
     // MARK: UICollectionViewDataSource
 
 
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return controller.trips.count
     }
 
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PostCell", for: indexPath) as? PostCollectionViewCell else { return UICollectionViewCell()}
-        let trip = controller.trips[indexPath.row]
-    
-        cell.trip = trip
-        loadPhoto(for: cell, trip: trip)
-    
-        return cell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as? PostTableViewCell else { return UITableViewCell()}
+            let trip = controller.trips[indexPath.row]
+        
+            cell.trip = trip
+            loadPhoto(for: cell, trip: trip)
+        
+            return cell
     }
     
-    private func loadPhoto(for cell: PostCollectionViewCell, trip: Trip) {
+    private func loadPhoto(for cell: PostTableViewCell, trip: Trip) {
         if let entry = controller.travelCache.values(forKey: trip.id)?.last as? Entry {
             
             guard let photoURLString = entry.photoURLStrings.last, let url = URL(string: photoURLString) else { return }
@@ -90,12 +89,16 @@ class PostCollectionViewController: UICollectionViewController {
                         return
                     }
                     DispatchQueue.main.async {
-                        cell.imageView.image = photo
+                        cell.photoImageView.image = photo
                     }
                 }
             }
 
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 300
     }
 
     // MARK: UICollectionViewDelegate

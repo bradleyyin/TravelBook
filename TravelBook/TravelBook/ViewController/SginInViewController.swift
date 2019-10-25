@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import GoogleSignIn
 
-class SignInViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate {
+class SignInViewController: UIViewController, GIDSignInDelegate {
 
     
     override func viewDidLoad() {
@@ -19,8 +19,9 @@ class SignInViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDele
         let signIn = GIDSignIn.sharedInstance()
         
         signIn?.delegate = self
-        signIn?.uiDelegate = self
-        signIn?.signInSilently()
+        signIn?.presentingViewController = self
+        //signIn?.uiDelegate = self
+        //signIn?.signInSilently()
         
         setUpSignInButton()
     }

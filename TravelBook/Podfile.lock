@@ -75,12 +75,6 @@ PODS:
     - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 6.0)
     - GTMSessionFetcher/Core (~> 1.1)
-  - FirebaseUI/Auth (8.3.1):
-    - Firebase/Auth (~> 6.0)
-    - GoogleUtilities/UserDefaults
-  - FirebaseUI/Google (8.3.1):
-    - FirebaseUI/Auth
-    - GoogleSignIn (~> 5.0)
   - GoogleAppMeasurement (6.1.3):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
@@ -138,19 +132,19 @@ PODS:
   - GTMSessionFetcher/Full (1.3.0):
     - GTMSessionFetcher/Core (= 1.3.0)
   - leveldb-library (1.22)
-  - nanopb (0.3.904):
-    - nanopb/decode (= 0.3.904)
-    - nanopb/encode (= 0.3.904)
-  - nanopb/decode (0.3.904)
-  - nanopb/encode (0.3.904)
+  - nanopb (0.3.9011):
+    - nanopb/decode (= 0.3.9011)
+    - nanopb/encode (= 0.3.9011)
+  - nanopb/decode (0.3.9011)
+  - nanopb/encode (0.3.9011)
   - Protobuf (3.10.0)
 
 DEPENDENCIES:
-  - Firebase/Auth (~> 6.11.0)
-  - Firebase/Core (~> 6.11.0)
-  - Firebase/Firestore (~> 6.11.0)
-  - Firebase/Storage (~> 6.11.0)
-  - FirebaseUI/Google
+  - Firebase/Auth
+  - Firebase/Core
+  - Firebase/Firestore
+  - Firebase/Storage
+  - GoogleSignIn
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -166,7 +160,6 @@ SPEC REPOS:
     - FirebaseFirestore
     - FirebaseInstanceID
     - FirebaseStorage
-    - FirebaseUI
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
@@ -193,7 +186,6 @@ SPEC CHECKSUMS:
   FirebaseFirestore: bb8315fa13a15ea8977e940496b74ba6ad9071f2
   FirebaseInstanceID: d0eafcd8bdbd3447cd694594734078c3e3e77d8b
   FirebaseStorage: b7c6d00997bc21d4465453bdcc5cc65513110fed
-  FirebaseUI: 826359d83af7cd76bfe0d43a8aab11eabac65558
   GoogleAppMeasurement: 434cc7be25e71dc04b8d0e3079125127b330e84a
   GoogleDataTransport: 166f9b9f82cbf60a204e8fe2daa9db3e3ec1fb15
   GoogleDataTransportCCTSupport: f6ab1962e9dc05ab1fb938b795e5b310209edeec
@@ -204,9 +196,9 @@ SPEC CHECKSUMS:
   GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
   GTMSessionFetcher: 43b8b64263023d4f32caa0b40f4c8bfa3c5f36d8
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
-  nanopb: 06f6030d554e6473f5e172460173fcf80f5548f4
+  nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   Protobuf: a4dc852ad69c027ca2166ed287b856697814375b
 
-PODFILE CHECKSUM: 0c104fd87244394bc84d84a1ff14f0630bbe9407
+PODFILE CHECKSUM: 11d6a9b4d7c51ab440330663eeb2b48094211578
 
 COCOAPODS: 1.7.5

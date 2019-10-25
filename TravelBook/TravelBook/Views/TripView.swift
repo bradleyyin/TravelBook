@@ -39,7 +39,11 @@ class TripView: UIView {
     private func setupSubViews() {
         //photoImageView.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
         let imageView = UIImageView()
-        imageView.backgroundColor = .red
+        imageView.backgroundColor = .lightGray
+        imageView.layer.cornerRadius = 20
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        
         self.addSubview(imageView)
 //        nameLabel.translatesAutoresizingMaskIntoConstraints = false
         imageView.translatesAutoresizingMaskIntoConstraints = false
