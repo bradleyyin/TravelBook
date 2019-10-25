@@ -17,10 +17,15 @@ class EntryPhotoCollectionViewCell: UICollectionViewCell {
             setupViews()
         }
     }
+    override func layoutSubviews() {
+        imageView.backgroundColor = .lightGray
+        imageView.layer.cornerRadius = 20
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
+    }
     private func setupViews() {
         imageViewWidthAnchor.constant = UIScreen.main.bounds.size.width
         imageViewHeightAnchor.constant = imageViewWidthAnchor.constant
-        
         imageView.image = photo
     }
     

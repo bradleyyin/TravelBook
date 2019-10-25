@@ -15,12 +15,6 @@ class EntriesViewController: UIViewController {
     
     var trip: Trip!
     var controller: TravelBookController!
-    
-    var dateFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
