@@ -35,7 +35,7 @@ class EntriesViewController: UIViewController {
         entryCollectionView.dataSource = self
         entryCollectionView.delegate = self
         
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadEntries), name: Notification.Name.init(rawValue: "entriesReeload"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadEntries), name: Notification.Name.init(rawValue: "entriesReload"), object: nil)
     }
     @objc func reloadEntries() {
         self.entryCollectionView.reloadData()

@@ -23,7 +23,7 @@ class AddEntryViewController: UIViewController {
     var datePicker: UIDatePicker!
     var formatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.dateFormat = "MM/dd HH:mm"
         return formatter
     }
     
@@ -36,6 +36,8 @@ class AddEntryViewController: UIViewController {
         self.datePicker = UIDatePicker()
         showDatePicker()
         updateViews()
+        noteTextView.delegate = self
+        noteTextView.textColor = .lightGray
         photoTableView.separatorStyle = .none
         setupImagePicker()
         loadPhotos()
@@ -65,7 +67,7 @@ class AddEntryViewController: UIViewController {
         if let date = entry?.date{
             datePicker.date = date
         }
-        datePicker.datePickerMode = .date
+        datePicker.datePickerMode = .dateAndTime
         datePicker.minimumDate = Date(timeIntervalSinceReferenceDate: 0)
     
         
@@ -185,4 +187,14 @@ extension AddEntryViewController: UIImagePickerControllerDelegate, UINavigationC
             }
         }
     }
+}
+
+extension AddEntryViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = ""
+            textView.textColor = .black
+        }
+    }
+    
 }

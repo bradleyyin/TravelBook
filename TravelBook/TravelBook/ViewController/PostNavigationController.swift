@@ -13,7 +13,7 @@ class PostNavigationController: UINavigationController {
     var controller: TravelBookController!
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let postCollectionVC = self.viewControllers[0] as? PostCollectionViewController else { return }
+        guard let postCollectionVC = self.viewControllers[0] as? PostTableViewController else { return }
         postCollectionVC.controller = controller
     }
 }
