@@ -413,7 +413,7 @@
         <scene sceneID="aoB-5D-GUY">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jix-DH-IVj" customClass="MapNavigationController" customModule="TravelBook" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" selectedImage="map" catalog="system" id="vmg-qW-2Az"/>
+                    <tabBarItem key="tabBarItem" title="" image="map" catalog="system" id="vmg-qW-2Az"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3L9-ou-iXz">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -432,7 +432,7 @@
         <scene sceneID="XVf-TL-cvB">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7y5-9A-QR0" customClass="PostNavigationController" customModule="TravelBook" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" selectedImage="book" catalog="system" id="neK-LK-U59"/>
+                    <tabBarItem key="tabBarItem" title="" image="book" catalog="system" id="neK-LK-U59"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zUE-vT-BMB">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
