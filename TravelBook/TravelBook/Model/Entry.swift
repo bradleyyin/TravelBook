@@ -11,12 +11,14 @@ import FirebaseFirestore
 
 struct Entry {
     var date: Date
+    var title: String = ""
     var photoURLStrings: [String]
     var notes: String
     let id: String
     
-    init(date: Date, photoURLStrings: [String], notes: String) {
+    init(date: Date, photoURLStrings: [String], notes: String, title: String) {
         self.date = date
+        self.title = title
         self.photoURLStrings = photoURLStrings
         self.notes = notes
         self.id = UUID().uuidString
@@ -28,10 +30,11 @@ struct Entry {
         self.photoURLStrings = dictionary["photoURLStrings"] as! [String]
         self.notes = dictionary["notes"] as! String
         self.id = dictionary["id"] as! String
+        self.title = dictionary["title"] as? String ?? ""
     }
     
     func toDictionary() -> [String: Any] {
-        return ["date": date, "photoURLStrings": photoURLStrings, "notes": notes, "id": id]
+        return ["date": date, "photoURLStrings": photoURLStrings, "notes": notes, "id": id, "title": title]
     }
     
 }

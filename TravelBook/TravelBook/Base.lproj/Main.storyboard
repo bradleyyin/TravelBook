@@ -96,7 +96,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
-                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hMe-Fl-7Pl">
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hMe-Fl-7Pl">
                                                     <rect key="frame" x="20" y="210.33333333333337" width="335" height="190.66666666666663"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                     <constraints>
@@ -180,7 +180,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="KKu-8f-7z2"/>
                     </view>
-                    <navigationItem key="navigationItem" id="EYq-wn-kg8"/>
+                    <navigationItem key="navigationItem" id="EYq-wn-kg8">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="EcH-MD-EOE">
+                            <connections>
+                                <segue destination="fme-5k-gOp" kind="show" identifier="AddEntryShowSegue" id="GSV-9d-iVb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="entryCollectionView" destination="KLa-zK-qUH" id="OmX-ct-6tG"/>
                     </connections>
@@ -189,84 +195,92 @@
             </objects>
             <point key="canvasLocation" x="3053.5999999999999" y="172.90640394088672"/>
         </scene>
-        <!--Entry Detail View Controller-->
+        <!--Add Entry View Controller-->
         <scene sceneID="A89-1u-AUY">
             <objects>
-                <viewController id="fme-5k-gOp" customClass="EntryDetailViewController" customModule="TravelBook" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="fme-5k-gOp" customClass="AddEntryViewController" customModule="TravelBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="egx-Ce-u3l">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="z8R-Mw-BQk">
-                                <rect key="frame" x="20" y="392" width="335" height="337"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" text="Add a story" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="lbh-Ao-WFJ">
+                                <rect key="frame" x="50" y="231" width="275" height="86"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="3pB-bG-bd2">
-                                    <size key="itemSize" width="211" height="153"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="rj2-49-fPi" customClass="PhotoCollectionViewCell" customModule="TravelBook" customModuleProvider="target">
-                                        <rect key="frame" x="62" y="0.0" width="211" height="153"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ae9-ZY-HZY">
-                                            <rect key="frame" x="0.0" y="0.0" width="211" height="153"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="z7n-iL-8Y8">
-                                                    <rect key="frame" x="0.0" y="0.0" width="211" height="153"/>
-                                                </imageView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="z7n-iL-8Y8" firstAttribute="top" secondItem="ae9-ZY-HZY" secondAttribute="top" id="7kV-gY-QrX"/>
-                                                <constraint firstAttribute="bottom" secondItem="z7n-iL-8Y8" secondAttribute="bottom" id="Bm4-gD-Ba8"/>
-                                                <constraint firstItem="z7n-iL-8Y8" firstAttribute="leading" secondItem="ae9-ZY-HZY" secondAttribute="leading" id="MF4-rm-Ctg"/>
-                                                <constraint firstAttribute="trailing" secondItem="z7n-iL-8Y8" secondAttribute="trailing" id="cZL-Wk-s9o"/>
-                                            </constraints>
-                                        </collectionViewCellContentView>
-                                        <size key="customSize" width="211" height="153"/>
-                                        <connections>
-                                            <outlet property="imageView" destination="z7n-iL-8Y8" id="w04-9Q-FE1"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                </cells>
-                            </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="156-Ex-Jry">
-                                <rect key="frame" x="203" y="261" width="72" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Add photo"/>
-                                <connections>
-                                    <action selector="addPhoto:" destination="fme-5k-gOp" eventType="touchUpInside" id="q0L-qU-za1"/>
-                                </connections>
-                            </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="lbh-Ao-WFJ">
-                                <rect key="frame" x="50" y="268" width="275" height="90"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="tripName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oZW-5I-GR5">
-                                <rect key="frame" x="166" y="108" width="71" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="MM/dd" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uX1-nW-zdW">
-                                <rect key="frame" x="30" y="127" width="55" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EOu-JI-62E">
+                                <rect key="frame" x="50" y="108" width="275" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Cgq-U6-d5b">
+                                <rect key="frame" x="50" y="152" width="275" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tha-p8-LP8">
+                                <rect key="frame" x="162.66666666666666" y="668" width="50" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="C9y-2m-mGD"/>
+                                    <constraint firstAttribute="width" constant="50" id="dLk-J9-4uC"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="39"/>
+                                <state key="normal" backgroundImage="camera" catalog="system"/>
+                                <connections>
+                                    <action selector="addPhoto:" destination="fme-5k-gOp" eventType="touchUpInside" id="RfD-FZ-SCN"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sh1-5b-zk9">
+                                <rect key="frame" x="37.666666666666657" y="337" width="300" height="300"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="1vP-6k-mpA"/>
+                                    <constraint firstAttribute="height" constant="300" id="2eS-70-iXe"/>
+                                </constraints>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PhotoCell" rowHeight="243" id="PaP-OE-isu" customClass="PhotoTableViewCell" customModule="TravelBook" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="300" height="243"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PaP-OE-isu" id="y8o-aw-Cjo">
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="243"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gmR-n0-WjO">
+                                                    <rect key="frame" x="15" y="11" width="270" height="221"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="gmR-n0-WjO" firstAttribute="top" secondItem="y8o-aw-Cjo" secondAttribute="topMargin" id="4r6-Qk-6Qp"/>
+                                                <constraint firstItem="gmR-n0-WjO" firstAttribute="leading" secondItem="y8o-aw-Cjo" secondAttribute="leadingMargin" id="KBD-jb-csg"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="gmR-n0-WjO" secondAttribute="trailing" id="Vdu-bL-gJf"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="gmR-n0-WjO" secondAttribute="bottom" id="cfm-5o-0iU"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="photoImageView" destination="gmR-n0-WjO" id="gFk-Pa-bME"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="BeV-is-Q8B" firstAttribute="trailing" secondItem="z8R-Mw-BQk" secondAttribute="trailing" constant="20" id="fCo-tO-RgS"/>
-                            <constraint firstItem="z8R-Mw-BQk" firstAttribute="leading" secondItem="BeV-is-Q8B" secondAttribute="leading" constant="20" id="rFO-nj-Xtd"/>
+                            <constraint firstItem="Cgq-U6-d5b" firstAttribute="leading" secondItem="BeV-is-Q8B" secondAttribute="leading" constant="50" id="1Bh-ab-GUP"/>
+                            <constraint firstItem="sh1-5b-zk9" firstAttribute="top" secondItem="lbh-Ao-WFJ" secondAttribute="bottom" constant="20" id="CQL-GY-naP"/>
+                            <constraint firstItem="Tha-p8-LP8" firstAttribute="centerX" secondItem="egx-Ce-u3l" secondAttribute="centerX" id="Fbx-KJ-DIm"/>
+                            <constraint firstItem="sh1-5b-zk9" firstAttribute="centerX" secondItem="egx-Ce-u3l" secondAttribute="centerX" id="H3h-Pz-PWV"/>
+                            <constraint firstItem="Tha-p8-LP8" firstAttribute="top" secondItem="sh1-5b-zk9" secondAttribute="bottom" constant="30" id="QMm-5l-XOF"/>
+                            <constraint firstItem="Cgq-U6-d5b" firstAttribute="top" secondItem="EOu-JI-62E" secondAttribute="bottom" constant="10" id="Rwi-Xs-lyn"/>
+                            <constraint firstItem="lbh-Ao-WFJ" firstAttribute="top" secondItem="Cgq-U6-d5b" secondAttribute="bottom" constant="45" id="YOj-5Y-amZ"/>
+                            <constraint firstItem="EOu-JI-62E" firstAttribute="top" secondItem="BeV-is-Q8B" secondAttribute="top" constant="20" id="ZQB-Zy-Gqi"/>
+                            <constraint firstItem="BeV-is-Q8B" firstAttribute="trailing" secondItem="lbh-Ao-WFJ" secondAttribute="trailing" constant="50" id="aYE-B6-j9x"/>
+                            <constraint firstItem="EOu-JI-62E" firstAttribute="leading" secondItem="BeV-is-Q8B" secondAttribute="leading" constant="50" id="eSa-2y-wAf"/>
+                            <constraint firstItem="BeV-is-Q8B" firstAttribute="bottom" secondItem="Tha-p8-LP8" secondAttribute="bottom" constant="12" id="puf-cR-EkA"/>
+                            <constraint firstItem="lbh-Ao-WFJ" firstAttribute="leading" secondItem="BeV-is-Q8B" secondAttribute="leading" constant="50" id="uWz-e2-h77"/>
+                            <constraint firstItem="BeV-is-Q8B" firstAttribute="trailing" secondItem="EOu-JI-62E" secondAttribute="trailing" constant="50" id="x8H-lW-fYe"/>
+                            <constraint firstItem="BeV-is-Q8B" firstAttribute="trailing" secondItem="Cgq-U6-d5b" secondAttribute="trailing" constant="50" id="zb8-nm-lCC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="BeV-is-Q8B"/>
                     </view>
@@ -279,13 +293,15 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="dateTextField" destination="Cgq-U6-d5b" id="Sqs-y3-4bd"/>
                         <outlet property="noteTextView" destination="lbh-Ao-WFJ" id="gV4-Q3-Pn4"/>
-                        <outlet property="photoCollectionView" destination="z8R-Mw-BQk" id="y46-eJ-aFY"/>
+                        <outlet property="photoTableView" destination="sh1-5b-zk9" id="WZe-F5-kvE"/>
+                        <outlet property="titleTextField" destination="EOu-JI-62E" id="sCt-DR-c3K"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YK2-9O-JKq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3055" y="1110"/>
+            <point key="canvasLocation" x="4296.8000000000002" y="300.73891625615767"/>
         </scene>
         <!--Sign In View Controller-->
         <scene sceneID="t7v-nk-yAh">
@@ -366,6 +382,7 @@
                                 <connections>
                                     <outlet property="imageView" destination="3Vr-fa-MKO" id="aLl-ev-njE"/>
                                     <outlet property="nameLabel" destination="Yzr-eN-fI7" id="1KF-42-dt4"/>
+                                    <segue destination="clC-RM-ptQ" kind="show" identifier="PostToEntryShowSegue" id="bC5-35-XeA"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -443,7 +460,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9KM-cn-PNQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2220" y="961"/>
+            <point key="canvasLocation" x="2447" y="961"/>
         </scene>
         <!--Main Tabbar Controller-->
         <scene sceneID="QrG-Uw-3fr">
@@ -503,4 +520,10 @@
             <point key="canvasLocation" x="232.80000000000001" y="960.59113300492618"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="camera" catalog="system" width="64" height="48"/>
+    </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="bC5-35-XeA"/>
+    </inferredMetricsTieBreakers>
 </document>

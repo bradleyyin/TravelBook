@@ -36,9 +36,9 @@ class PostCollectionViewController: UICollectionViewController {
             guard let addVC = segue.destination as? AddPostViewController else { return }
             addVC.controller = controller
         } else if segue.identifier == "PostToEntryShowSegue" {
-            guard let entryListVC = segue.destination as? EntryListTableViewController, let indexPath = collectionView.indexPathsForSelectedItems?.first else { return }
-            entryListVC.trip = controller.trips[indexPath.item]
-            entryListVC.controller = controller
+            guard let entryVC = segue.destination as? EntriesViewController, let indexPath = collectionView.indexPathsForSelectedItems?.first else { return }
+            entryVC.trip = controller.trips[indexPath.item]
+            entryVC.controller = controller
         }
     }
   

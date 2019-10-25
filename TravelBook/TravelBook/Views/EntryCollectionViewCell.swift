@@ -51,7 +51,7 @@ class EntryCollectionViewCell: UICollectionViewCell {
         guard let entry = entry else { return }
         dateLabel.text = dateFormatter.string(from: entry.date)
         locationLabel.text = trip.name
-        entryTitleLabel.text = trip.name
+        entryTitleLabel.text = entry.title
         entryNotesTextView.text = entry.notes
         
     }

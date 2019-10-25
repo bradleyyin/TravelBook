@@ -8,10 +8,11 @@
 
 import UIKit
 
-class EntryDetailViewController: UIViewController {
-
+class AddEntryViewController: UIViewController {
+    
+    @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var dateTextField: UITextField!
-    @IBOutlet weak var photoCollectionView: UICollectionView!
+    @IBOutlet weak var photoTableView: UITableView!
     @IBOutlet weak var noteTextView: UITextView!
     
     var entry: Entry?
@@ -30,11 +31,12 @@ class EntryDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        photoCollectionView.delegate = self
-        photoCollectionView.dataSource = self
+        photoTableView.delegate = self
+        photoTableView.dataSource = self
         self.datePicker = UIDatePicker()
         showDatePicker()
         updateViews()
+        photoTableView.separatorStyle = .none
         setupImagePicker()
         loadPhotos()
         
@@ -44,7 +46,7 @@ class EntryDetailViewController: UIViewController {
     
     private func setupImagePicker() {
         imagePicker = UIImagePickerController()
-        imagePicker.allowsEditing = true
+        imagePicker.allowsEditing = false
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
     }
@@ -101,35 +103,33 @@ class EntryDetailViewController: UIViewController {
                     guard let photo = photo else { return }
                     self.photos.append(photo)
                     DispatchQueue.main.async {
-                        self.photoCollectionView.reloadData()
+                        self.photoTableView.reloadData()
                     }
                 }
             }
         } else {
             photos = controller.travelCache.values(forKey: entry.id) as? [UIImage] ?? []
-            self.photoCollectionView.reloadData()
+            self.photoTableView.reloadData()
         }
         
     }
-    
     @IBAction func addPhoto(_ sender: Any) {
         self.present(imagePicker, animated: true)
     }
-    
     @IBAction func saveEntry(_ sender: Any) {
-        guard photoURLStrings.count == photos.count else { print("string not same count"); return }
+        guard photoURLStrings.count == photos.count, let notes = noteTextView.text, let title = titleTextField.text else { print("string not same count"); return }
         let date = datePicker.date
-        let notes = noteTextView.text
+        
         
         if var entry = self.entry {
             entry.photoURLStrings = photoURLStrings
-            entry.notes = notes ?? ""
+            entry.notes = notes
             entry.date = date
             self.controller.addEntry(to: self.trip, entry: entry)
             controller.travelCache.cacheValues(forKey: entry.id, values: photos)
             self.navigationController?.popViewController(animated: true)
         } else {
-            let entry = Entry(date: date, photoURLStrings: photoURLStrings, notes: notes ?? "")
+            let entry = Entry(date: date, photoURLStrings: photoURLStrings, notes: notes, title: title)
             self.controller.addEntry(to: self.trip, entry: entry)
             controller.travelCache.cacheValues(forKey: entry.id, values: photos)
             self.navigationController?.popViewController(animated: true)
@@ -152,23 +152,23 @@ class EntryDetailViewController: UIViewController {
 
 }
 
-extension EntryDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+extension AddEntryViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return photos.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as? PhotoCollectionViewCell else { return UICollectionViewCell() }
-        cell.imageView.image = photos[indexPath.row].resizeImage(targetSize: CGSize(width: 100, height: 100))
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoCell", for: indexPath) as? PhotoTableViewCell else { return UITableViewCell() }
+        cell.photoImageView.image = photos[indexPath.row].resizeImage(targetSize: CGSize(width: 300, height: 300))
         
         return cell
-        
     }
+    
     
     
 }
 
-extension EntryDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension AddEntryViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         imagePicker.dismiss(animated: true, completion: nil)
     }
@@ -181,7 +181,7 @@ extension EntryDetailViewController: UIImagePickerControllerDelegate, UINavigati
                 self.photoURLStrings.append(url.absoluteString)
             }
             imagePicker.dismiss(animated: true) {
-                self.photoCollectionView.reloadData()
+                self.photoTableView.reloadData()
             }
         }
     }
