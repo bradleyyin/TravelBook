@@ -24,6 +24,7 @@ class EntryPhotoCollectionViewCell: UICollectionViewCell {
         imageView.contentMode = .scaleAspectFill
     }
     private func setupViews() {
+        imageView.image = nil
         imageViewWidthAnchor.constant = contentView.bounds.width
         imageViewHeightAnchor.constant = imageViewWidthAnchor.constant
         imageView.image = photo
