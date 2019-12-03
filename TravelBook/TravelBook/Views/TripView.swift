@@ -41,7 +41,7 @@ class TripView: UIView {
         let imageView = UIImageView()
         imageView.backgroundColor = .lightGray
         imageView.layer.cornerRadius = 20
-        imageView.contentMode = .scaleAspectFill
+        
         imageView.clipsToBounds = true
         
         self.addSubview(imageView)
@@ -78,7 +78,7 @@ class TripView: UIView {
 //    }
     private func updatePhoto() {
         DispatchQueue.main.async {
-            self.photoImageView.contentMode = .scaleAspectFit
+            self.photoImageView.contentMode = .scaleAspectFill
             self.photoImageView.image = self.photo
         }
         

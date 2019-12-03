@@ -22,6 +22,11 @@ class PostTableViewController: UITableViewController {
 
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
     @objc func reloadPosts() {
         self.tableView.reloadData()
     }
@@ -70,7 +75,7 @@ class PostTableViewController: UITableViewController {
                     return
                 }
                 DispatchQueue.main.async {
-                    //cell.imageView.image = photo
+                    cell.photoImageView.image = photo
                 }
                 
             }

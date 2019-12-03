@@ -13,7 +13,7 @@ class PhotoTableViewCell: UITableViewCell {
     @IBOutlet weak var photoImageView: UIImageView!
     override func prepareForReuse() {
         super.prepareForReuse()
-        photoImageView.image = nil
+        //photoImageView.image = nil
     }
 
     override func awakeFromNib() {

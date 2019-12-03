@@ -20,7 +20,7 @@ class PostTableViewCell: UITableViewCell {
     }
     private func updateViews() {
         guard let trip = trip else { return }
-        
+        photoImageView.image = nil
         nameLabel.text = trip.name
         photoImageView.contentMode = .scaleAspectFill
         photoImageView.layer.cornerRadius = 20

@@ -26,7 +26,7 @@ class EntryCollectionViewCell: UICollectionViewCell {
     
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MM-dd hh:mm"
+        formatter.dateFormat = "MM/dd HH:mm"
         return formatter
     }
     @IBOutlet weak var dateLabel: UILabel!
@@ -38,6 +38,7 @@ class EntryCollectionViewCell: UICollectionViewCell {
     private func setupViews() {
         photoCollectionView.delegate = self
         photoCollectionView.dataSource = self
+        photos = []
         loadPhotos()
         //print(entry?.photoURLStrings.count)
         photoCollectionViewHeightConstraint.constant = CGFloat((entry?.photoURLStrings.count ?? 0)) * UIScreen.main.bounds.width
@@ -64,7 +65,8 @@ class EntryCollectionViewCell: UICollectionViewCell {
     
     func loadPhotos() {
         guard let entry = entry else { return }
-        //photos = []
+        print("photostring number at \(entry.id)", entry.photoURLStrings.count)
+        
         if controller.travelCache.values(forKey: entry.id) == nil {
             for photoString in entry.photoURLStrings {
                 guard let url = URL(string: photoString) else { continue }
@@ -96,6 +98,7 @@ class EntryCollectionViewCell: UICollectionViewCell {
 
 extension EntryCollectionViewCell: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print(photos.count)
         return photos.count
     }
     
